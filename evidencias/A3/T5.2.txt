@@ -1,0 +1,33 @@
+CASO T5.2 - Ação administrativa com token comum (desativar/excluir B)
+App: A3
+========================================================================
+----- Troca 1 -----
+# desativar B
+>>> PATCH http://localhost:3000/api/admin/users/3/status
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}
+
+----- Troca 2 -----
+# excluir B
+>>> DELETE http://localhost:3000/api/admin/users/3
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 403 Forbidden   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}

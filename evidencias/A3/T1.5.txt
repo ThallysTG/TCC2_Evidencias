@@ -1,0 +1,18 @@
+CASO T1.5 - Troca de dono (POST com user_id=B no corpo)
+App: A3
+========================================================================
+# criar com user_id/userId=B
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"Tarefa dono forjado","user_id":3,"userId":3,"status":"pendente","priority":"media"}
+
+<<< HTTP 201 Created   (3 ms)
+<<< connection: keep-alive
+<<< content-length: 191
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"bf-gQUAnfsUYdGMif/lPoYPFsDDV98"
+<<< keep-alive: timeout=5
+<<<
+<<< {"id":42,"title":"Tarefa dono forjado","description":"","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T03:48:46.096Z","updated_at":"2026-11-07T03:48:46.096Z"}

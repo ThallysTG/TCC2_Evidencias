@@ -1,0 +1,49 @@
+CASO T8.3 - Erros detalhados (JSON malformado, id inválido, tipos errados)
+App: A3
+========================================================================
+----- Troca 1 -----
+# JSON malformado
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email": "a@a.com", "password":
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 27
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"1b-AjFoNvUsYUs7YtOupla+XOubtlE"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"JSON inválido."}
+
+----- Troca 2 -----
+# id não numérico
+>>> GET http://localhost:3000/api/tasks/abc
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 404 Not Found   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"23-kfHwci2bzba50QK9+WrCTw1fI20"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Tarefa não encontrada."}
+
+----- Troca 3 -----
+# tipos errados
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":{"$ne":1},"status":123}
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 98
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"62-hv+KkFOxmsru3rrieZ/xXGyC9Ng"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Dados inválidos.","fields":{"title":"Informe o título.","status":"Status inválido."}}

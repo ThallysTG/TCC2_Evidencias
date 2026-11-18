@@ -1,0 +1,11 @@
+CASO T4.4 - Fluxo custoso (20 pedidos de redefinição, mesmo e-mail)
+App: A2
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+20 pedidos ao POST /api/auth/forgot-password com o mesmo e-mail (usuario.a@teste.local). Status: {"200":20} - todos aceitos.
+Confirmação no log do backend: 23 linhas "redefinir-senha?token=" no total da sessão (1 da aceitação + 1 do T2.6 + 1 do T2.7 + 20 deste T4.4), ou seja, cada um dos 20 pedidos gerou um link/e-mail simulado.
+Comando usado: docker compose -p a2 logs backend | grep -c "redefinir-senha?token="  ->  23
+Não há limitador de redefinição no A2 (nenhum rate-limit por e-mail ou por IP). Vulnerável: fluxo custoso sem restrição.

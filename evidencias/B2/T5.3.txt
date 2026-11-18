@@ -1,0 +1,103 @@
+CASO T5.3 - Autopromoção (role=admin no cadastro e no perfil)
+App: B2
+========================================================================
+----- Troca 1 -----
+# cadastro role=admin
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Promovido","email":"autopromo-1794060249216@teste.local","password":"****","role":"admin","active":true}
+
+<<< HTTP 201 Created   (151 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 495
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"1ef-KE36dnBK+lRmP1bW6dmMghaFApI"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 15
+<<< ratelimit-policy: 15;w=900
+<<< ratelimit-remaining: 10
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Cadastro realizado com sucesso.","token":"eyJhbGciOiJI…jqXktLOk [267 chars]","user":{"id":"39917aca-e4ce-4cda-9625-9469dc5fcc1f","name":"Promovido","email":"autopromo-1794060249216@teste.local","role":"user","created_at":"2026-11-07T14:04:09.363Z"}}
+
+----- Troca 2 -----
+# perfil role=admin
+>>> PUT http://localhost:3000/api/profile
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Usuario A","email":"usuario.a@teste.local","role":"admin"}
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 97
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"61-4HQN6leVWzGy0LzyIEw/wT5kXrM"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 155
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Operação não permitida: um usuário não pode alterar o próprio perfil de acesso."}
+
+----- Troca 3 -----
+# role de A depois
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 159
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"9f-xKC0OA5tQKKQKm00bmkJkxekjuA"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 154
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"user":{"id":"5953114b-3aed-4063-bf2b-9f2c0d4eeab3","name":"Usuario A","email":"usuario.a@teste.local","role":"user","created_at":"2026-11-07T14:04:08.212Z"}}

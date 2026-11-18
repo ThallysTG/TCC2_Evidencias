@@ -1,0 +1,92 @@
+CASO T8.1 - Cabeçalhos de segurança (frontend tasko-team-organizer)
+App: B1
+========================================================================
+# GET / do site
+>>> GET https://tasko-team-organizer.lovable.app/
+
+<<< HTTP 200 OK   (1580 ms)
+<<< cache-control: no-cache, must-revalidate, max-age=0
+<<< cf-ray: a56e16679e89626e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud wss://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+<<< content-type: text/html; charset=utf-8
+<<< cross-origin-resource-policy: same-origin
+<<< permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+<<< referrer-policy: strict-origin-when-cross-origin
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=X7r4sy…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-deployment-id: psr2.99adc1be-d1dc-4a04-9d09-16e528f663e0.1794677654.XZo6Dl8Xrczb1CBSmalgPJm3xPDNNksLzkR461niDPM
+<<< x-frame-options: DENY
+<<<
+<<< <!DOCTYPE html><html lang="pt-BR"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" data-precedence="default"/><link rel="stylesheet" href="/assets/styles-doAQzpqk.css" data-precedence="default"/><title>TaskFlow — Gestão de tarefas para equipes pequenas</title><meta name="description" content="Crie, organize e acompanhe as tarefas da sua equipe com status, prioridade e prazos."/><meta property="og:title" content="TaskFlow — Gestão de tarefas para equipes pequenas"/><meta property="og:description" content="Crie, organize e acompanhe as tarefas da sua equipe com status, prioridade e prazos."/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><link rel="modulepreload" href="/assets/index-C1nBWH5y.js"/><link rel="modulepreload" href="/assets/useRouter-Dpb7RwMI.js"/><link rel="modulepreload" href="/assets/react-dom-C6UbONwD.js"/><link rel="modulepreload" href="/assets/createServerFn-5zcXtKFv.js"/><link rel="modulepreload" href="/assets/not-found-DIgawKw1.js"/><link rel="modulepreload" href="/assets/link-DmIVlRKu.js"/><link rel="modulepreload" href="/assets/matchContext-DN9gHYo-.js"/><link rel="modulepreload" href="/assets/preload-helper-COmdz5kN.js"/><link rel="modulepreload" href="/assets/useSelector-wdOmz881.js"/><link rel="modulepreload" href="/assets/useNavigate-DT7ghfdY.js"/><link rel="modulepreload" href="/assets/auth-guards-DiINUNEX.js"/><link rel="modulepreload" href="/assets/client-CcnG9V9B.js"/><link rel="modulepreload" href="/assets/QueryClientProvider-DWd7tQmY.js"/><link rel="modulepreload" href="/assets/createLucideIcon-DyOSRp63.js"/><link rel="modulepreload" href="/assets/validation-DF54JeeE.js"/><link rel="modulepreload" href="/assets/routes-DNbdj8-2.js"/><link rel="modulepreload" href="/assets/task-badges-2y7-Qj6f.js"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+<<< <style>
+<<< 	#lovable-badge {
+<<< 		--badge-bg: #1b1b1b;
+<<< 		--badge-text: #c5c1b9;
+<<< 		--badge-text-hover: #dcdad5;
+<<< 		--badge-radius: 6px;
+<<< 		--badge-padding: 8px;
+<<< 		--badge-gap: 6px;
+<<< 		--badge-shadow: 
+<<< 			0 0 0 1px rgba(0, 0, 0, 0.88),
+<<< 			0 1px 0 0 rgba(0, 0, 0, 0.04),
+<<< 			0 2px 2px -1px rgba(0, 0, 0, 0.08),
+<<< 			0 4px 4px -2px rgba(0, 0, 0, 0.08),
+<<< 			0 8px 8px -4px rgba(0, 0, 0, 0.08),
+<<< 			0 16px 16px -8px rgba(0, 0, 0, 0.08);
+<<< 		--badge-transition-duration: 0.2s;
+<<< 		--badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+<<< 		--focus-color: #575ECF;
+<<< 		--focus-offset: 2px;
+<<< 		--focus-width: 2px;
+<<< 		
+<<< 		position: fixed;
+<<< 		bottom: 12px;
+<<< 		right: 12px;
+<<< 		height: 24px;
+<<< 		display: flex;
+<<< 		align-items: center;
+<<< 		z-index: 1000000;
+<<< 		background-color: var(--badge-bg) !important;
+<<< 		color: var(--badge-text) !important;
+<<< 		border-radius: var(--badge-radius);
+<<< 		box-shadow: var(--badge-shadow) !important;
+<<< 		font-size: 12px;
+<<< 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+<<< 		font-weight: 400 !important;
+<<< 		text-transform: none !important;
+<<< 		font-feature-settings: normal !important;
+<<< 		transform: translateZ(0);
+<<< 		will-change: transform, opacity;
+<<< 		transition: opacity var(--badge-transition-duration) var(--badge-transition-easing);
+<<< 	}
+<<< 
+<<< 	#lovable-badge.closing {
+<<< 		opacity: 0;
+<<< 		pointer-events: none;
+<<< 	}
+<<< 
+<<< 	#lovable-badge-cta {
+<<< 		display: flex;
+<<< 		align-items: baseline;
+<<< 		gap: var(--badge-gap);
+<<< 		box-sizing: border-box;
+<<< 		padding: 4px var(--badge-padding) 0;
+<<< 		height: 100%;
+<<< 		color: inherit;
+<<< 		text-decoration: none;
+<<< 		white-space: nowrap;
+<<< 		border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+<<< 		transition: 
+<<< 			background-color var(--badge-transition-duration) ease,
+<<< 			color var(--badge-transition-duration) ease,
+<<< 			transfor
+<<< …[+19437 chars truncados]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Faltando: nenhum. CSP=presente; XFO=DENY.

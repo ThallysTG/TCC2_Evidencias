@@ -1,0 +1,72 @@
+CASO T2.7 - Enumeração de usuários (login: e-mail existente x inexistente)
+App: A1
+========================================================================
+----- Troca 1 -----
+# login existente+senha errada
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/token?grant_type=password
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador@email.removido","password":"****"}
+
+<<< HTTP 400 Bad Request   (532 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d6f8ebf6288-GRU
+<<< connection: keep-alive
+<<< content-length: 81
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=5cXOyLXKBq8wPV1m5mbqLQOmTHGJW4swNql7l%2Btut4HQki7oIXvelLWSeLhUTzqhxOYTeIrWb9EK38MWU4N0lGyemewsuKA2wqqGzV%2BAIOzxgR9eP2KCzEfEFtR33%2FTuLUdBOMUHdwHnrziHK5Xxsg%2FqTg%2BfYx4682XKXP357q7m8AJEud8pQhii%2BxdE"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-a1fb-7c86-9101-1787362a4e6f
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=w1ZGlm…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 232
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: invalid_credentials
+<<<
+<<< {"code":400,"error_code":"invalid_credentials","msg":"Invalid login credentials"}
+
+----- Troca 2 -----
+# login e-mail inexistente
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/token?grant_type=password
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794063966837@teste.invalid","password":"****"}
+
+<<< HTTP 400 Bad Request   (305 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d72df3ad5fa-GRU
+<<< connection: keep-alive
+<<< content-length: 81
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=nvvRXNW3Te%2F4Ugum4N%2FXQm7nMgIf0zJKZkBQ%2BFI0G7N88TUwEWNLOFVOn2DqxB73HqSeUy52620NYUs5qLxAnEzhLIJ%2FqjdTDacSr3DUAo0qPxMLAOgFGJLoRRbSDTOpsF8GbhB2vRLKU%2F1Ukmqv8Zd6JwFdPk%2BRFR2VCwGG4MfG5M4pmInnjJ0As19v"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-a3ff-7eb9-b842-f7cfa3e0e5a1
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=8X3I8C…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 2
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: invalid_credentials
+<<<
+<<< {"code":400,"error_code":"invalid_credentials","msg":"Invalid login credentials"}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Supabase responde "Invalid login credentials" genérico nos dois casos. (Signup/forgot não testados para não criar contas/e-mails em produção - ver inspeção.)

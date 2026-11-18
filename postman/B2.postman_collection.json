@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "TCC - B2 (Gemini, condição B) - API Security",
+    "description": "Requisições usadas nas capturas de tela do B2. Rode a pasta \"0 - Setup\" para popular os tokens. B2 é a condição com prompt de segurança - a maioria dos controles funciona (respostas 400/401/403/429).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0 - Setup (rodar primeiro)",
+      "item": [
+        {
+          "name": "Login usuário B -> salva tokenB",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario.b@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.token) pm.environment.set(\"tokenB\", j.token);",
+                  "pm.test(\"200\", ()=>pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login admin -> salva adminToken",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@taskflow.local\",\n  \"password\": \"Admin@TaskFlow2026!\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.token) pm.environment.set(\"adminToken\", j.token);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "API2 - Broken Authentication",
+      "item": [
+        {
+          "name": "T2.7a Cadastro e-mail EXISTENTE (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teste Enum\",\n  \"email\": \"usuario.b@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "E-mail já cadastrado -> 400 com mensagem GENÉRICA. Compare o status com T2.7b (201). A diferença 400 vs 201 é o único vetor de enumeração (mensagem é genérica)."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.7b Cadastro e-mail NOVO (201)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teste Enum\",\n  \"email\": \"novo-enum-{{$timestamp}}@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "E-mail novo -> 201 Created."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API5 - BFLA (controle OK)",
+      "item": [
+        {
+          "name": "T5.1 GET /admin/users com token comum (B) -> 403",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJI…mYJHuUsY [267 chars]"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            },
+            "description": "Esperado: 403 (authenticate + requireAdmin verifica role no banco). Controle funcionando."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API2 - T2.5 token forjado (controle OK)",
+      "item": [
+        {
+          "name": "T2.5 /auth/me com token FORJADO (segredo default) -> 401",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJI…JxNoebXU [223 chars]"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Token forjado com segredo DEFAULT/fraco (troque-este-segredo-em-producao). O segredo real é forte (64 hex) -> 401 \"Sessão inválida ou expirada\". Controle funcionando (contraste com A3, onde o segredo default permitia forjar)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API8 - T8.1 cabeçalhos (controle OK)",
+      "item": [
+        {
+          "name": "T8.1 GET frontend :5173 -> ver aba Headers (CSP, HSTS, X-Frame-Options DENY...)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5173/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "5173",
+              "path": []
+            },
+            "description": "Abra a aba Headers da resposta: Content-Security-Policy, Strict-Transport-Security, X-Content-Type-Options: nosniff, X-Frame-Options: DENY, Referrer-Policy: no-referrer. Controle funcionando (contraste com A3, sem esses cabeçalhos)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

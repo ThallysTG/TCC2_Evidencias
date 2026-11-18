@@ -1,0 +1,198 @@
+CASO T2.5 - Segredo de assinatura (forjar token com segredos default/fracos)
+App: B2
+========================================================================
+----- Troca 1 -----
+# forjado c/ segredo="troque-este-segredo-em-producao"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…KWEcPDnk [221 chars]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 202
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 2 -----
+# forjado c/ segredo="secret"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…IOvktwRs [221 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 201
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 3 -----
+# forjado c/ segredo="changeme"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…SOCG4rMg [221 chars]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 200
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 4 -----
+# forjado c/ segredo="jwt_secret"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…8G7U-AEE [221 chars]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 199
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 5 -----
+# forjado c/ segredo="taskflow"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…0XE6wR_4 [221 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 198
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 6 -----
+# forjado c/ segredo="(vazio)"
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…iAlzfhvY [221 chars]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-YBzxoSrVhBPttnngdbZCO64Drtw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 197
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+JWT_SECRET do deploy é aleatório de 64 hex (lido do .env, validado ≥32 chars na inicialização). Nenhum segredo default/fraco testado forjou um token aceito. Camada extra: a sessão (jti) precisa existir no banco (revoked=FALSE, não expirada), então mesmo com o segredo correto um jti inventado seria rejeitado. Observação: o arquivo .env com o segredo está versionado no repositório - risco se o repositório vazar, mas não é um segredo default/adivinhável.

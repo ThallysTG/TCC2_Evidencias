@@ -1,0 +1,38 @@
+CASO T4.2 - Tamanho de página (limit=100000)
+App: B2
+========================================================================
+# GET /tasks?limit=100000
+>>> GET http://localhost:3000/api/tasks?limit=100000
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 5042
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"13b2-KjJ0gnsJJt4uDfweC985KpzBBp8"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 147
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"tasks":[{"id":"133df27b-e0a3-41d3-8bca-15bf9ce5c714","title":"Tarefa A #3","description":"Descrição 3 de A","status":"pendente","priority":"baixa","due_date":"2026-12-04","created_at":"2026-11-07T14:04:08.393Z","updated_at":"2026-11-07T14:04:08.393Z"},{"id":"2b378763-dad9-4b82-9f09-8c2d0caf25e2","title":"Tarefa A #6","description":"Descrição 6 de A","status":"pendente","priority":"baixa","due_date":"2026-12-07","created_at":"2026-11-07T14:04:08.405Z","updated_at":"2026-11-07T14:04:08.405Z"},{"id":"93855ede-49eb-4643-8960-4971e46b7ee7","title":"Tarefa A #9","description":"Descrição 9 de A","status":"pendente","priority":"baixa","due_date":"2026-12-10","created_at":"2026-11-07T14:04:08.415Z","updated_at":"2026-11-07T14:04:08.415Z"},{"id":"47dec26f-2f5e-4077-b2e1-55716f790fce","title":"Tarefa A #12","description":"Descrição 12 de A","status":"pendente","priority":"baixa","due_date":"2026-12-13","created_at":"2026-11-07T14:04:08.427Z","updated_at":"2026-11-07T14:04:08.427Z"},{"id":"f721a47e-d78d-4b5d-a07f-d3136307b831","title":"Tarefa A #15","description":"Descrição 15 de A","status":"pendente","priority":"baixa","due_date":"2026-12-16","created_at":"2026-11-07T14:04:08.437Z","updated_at":"2026-11-07T14:04:08.437Z"},{"id":"0ae2b58a-9503-435f-ad24-cf3b3bebe6ee","title":"Tarefa A #18","description":"Descrição 18 de A","status":"pendente","priority":"baixa","due_date":"2026-12-19","created_at":"2026-11-07T14:04:08.448Z","updated_at":"2026-11-07T14:04:08.448Z"},{"id":"075267cd-d641-44f6-9967-3caed9d41d05","title":"Tarefa A #1","description":"Descrição 1 de A","status":"em_andamento","priority":"media","due_date":"2026-12-02","created_at":"2026-11-07T14:04:08.385Z","updated_at":"2026-11-07T14:04:08.385Z"},{"id":"7bb97132-f746-451c-8606-d75ddb91c8bf","title":"Tarefa A #4","description":"Descrição 4 de A","status":"em_andamento","priority":"media","due_date":"2026-12-05","created_at":"2026-11-07T14:04:08.397Z","updated_at":"2026-11-07T14:04:08.397Z"},{"id":"5132cd51-c0b6-4fd6-b1b6-2c725abf9ab2","title":"Tarefa A #7","description":"Descrição 7 de A","status":"em_andamento","priority":"media","due_date":"2026-12-08","created_at":"2026-11-07T14:04:08.408Z","updated_at":"2026-11-07T14:04:08.408Z"},{"id":"07a9a200-bf36-401d-af15-a5f3f99afcd0","title":"Tarefa A #10","description":"Descrição 10 de A","status":"em_andamento","priority":"media","due_date":"2026-12-11","created_at":"2026-11-07T14:04:08.419Z","updated_at":"2026-11-07T14:04:08.419Z"},{"id":"8d430232-6c3e-4e6f-a15b-9755c0b2c600","title":"Tarefa A #13","description":"Descrição 13 de A","status":"em_andamento","priority":"media","due_date":"2026-12-14","created_at":"2026-11-07T14:04:08.430Z","updated_at":"2026-11-07T14:04:08.430Z"},{"id":"25897603-c9e4-44e7-b836-289ea7efd71d","title":"Tarefa A #16","description":"Descrição 16 de A","status":"em_andamento","priority":"media","due_date":"2026-12-17","created_at":"2026-11-07T14:04:08.441Z","updated_at":"2026-11-07T14:04:08.441Z"},{"id":"f3fc2a8e-154b-4c23-b5d3-a7193fa65530","title":"Tarefa A #19","description":"Descrição 19 de A","status":"em_andamento","priority":"media","due_date":"2026-12-20","created_at":"2026-11-07T14:04:08.452Z","updated_at":"2026-11-07T14:04:08.452Z"},{"id":"a4944354-8f38-436a-b9bd-992aa0776303","title":"Tarefa A #2","description":"Descrição 2 de A","status":"concluida","priority":"alta","due_date":"2026-12-03","created_at":"2026-11-07T14:04:08.389Z","updated_at":"2026-11-07T14:04:08.389Z"},{"id":"9b19e0bb-6d63-4642-9116-be9a2da6836f","title":"Tarefa A #5","description":"Descrição 5 de A","status":"concluida","priority":"alta","due_date":"2026-12-06","created_at":"2026-11-07T14:04:08.401Z","updated_at":"2026-11-07T14:04:08.401Z"},{"id":"505e83ba-113d-40ba-b7de-a638c0f2ed56","title":"Tarefa A #8","description":"Descrição 8 de A","status":"concluida","priority":"alta","due_date":"2026-12-09","created_at":"2026-11-07T14:04:08.412Z","updated_at":"2026-11-07T14:04:08.412Z"},{"id":"2ea9a974-3b08-42bb-8524-3dbd70d64ac8"
+<<< …[+1002 chars truncados]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+limit aplicado=50, itens=20. Código: limit > 50 => 50.

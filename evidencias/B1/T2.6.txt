@@ -1,0 +1,70 @@
+CASO T2.6 - Redefinição de senha (resposta genérica + GoTrue gerenciado)
+App: B1
+========================================================================
+----- Troca 1 -----
+# existente
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b1b@email.removido"}
+
+<<< HTTP 200 OK   (1646 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1521e841c65f-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=uHD7KjLZZVFnAU9czYpcNClu8ArNOqGOWV59zj%2F0rlraP2Y%2BXwfjo%2FZxAlt0EUXS2YfE2h79ODs3RVI7yHcdJzlKUJTIHl8UivmnnalQ3ZJGKkCV6nnVmod6zYWTmcjH3LmEr0%2F5PP559kXBEs90uMGAVOiOuC8n%2F3a3p1EEIAdOUJajzIMosYujLg19"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-713d-72e7-971e-9ced89f928f8
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=D7Ro9k…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 905
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {}
+
+----- Troca 2 -----
+# inexistente
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794072803032@example.com"}
+
+<<< HTTP 200 OK   (244 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e152c2c224f6e-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=IqwN00y4ATnFfYnsaZoAAlg5ni%2FeD%2BnVFvoaupPct%2FX6Jynd%2F00m9vdCf7APdG8OK%2BLhUPPbD8xN2Bp2SpWdo3t71zHxpOiqrtCmP%2BZYDUwOZQ4zESdNQc0XDyoJVA%2BTJiIcmaGDf4T6RJwljkTJVdeAE%2Fi7%2FOqENj%2F8uyDl2M9uJYz%2BVlWQx88LGdLy"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-77a7-7621-b398-d6384fa10078
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=CPjNVB…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+GoTrue: token de recuperação aleatório, uso único, expira. Reuso/expiração avaliados por inspeção (aplicação em produção).

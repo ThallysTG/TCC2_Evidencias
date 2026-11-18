@@ -1,0 +1,9 @@
+CASO T8.6 - Configuração de banco (exposição)
+App: A1
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Banco Postgres do Supabase NÃO é exposto diretamente: o acesso público é só via PostgREST (REST) com apikey + RLS.
+Não há porta de banco publicada para o cliente; a superfície é a API REST protegida por RLS.

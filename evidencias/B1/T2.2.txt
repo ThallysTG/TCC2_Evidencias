@@ -1,0 +1,35 @@
+CASO T2.2 - Política de senha (cadastro com senha "123")
+App: B1
+========================================================================
+# signup 123
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-pw-1794072799836@example.com","password":"****"}
+
+<<< HTTP 422 Unprocessable Entity   (395 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1518296f4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0HIX9Jg8TPCQF5GyYPkV6EjBzJizp9DNgBkrMCkuiFMIReURSy%2B%2BLrincVgoMJtNtTSQhM%2BEJRp%2Fsqj49gOom0iI4wMxfTMMNY177YfcgJhbWpcFI%2BwynjoFsf3FDKHIUbrhtLpgiHIJT0sMfgSN5Vl4MTukGJ712TODIHbXky5JHsM1dKciEZ%2B%2BehD7"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-6b60-7945-a514-521010353714
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=UCfWG7…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 94
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: weak_password
+<<<
+<<< {"code":422,"error_code":"weak_password","msg":"Password should be at least 6 characters. Password is known to be weak and easy to guess, please choose a different one.","weak_password":{"reasons":["length","pwned"]}}

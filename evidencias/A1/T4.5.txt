@@ -1,0 +1,72 @@
+CASO T4.5 - Cadastro em massa (signups seguidos do mesmo IP, parar no 1º 429)
+App: A1
+========================================================================
+----- Troca 1 -----
+# 1º signup
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-mass-1794069558700-1@example.com","password":"****"}
+
+<<< HTTP 400 Bad Request   (814 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5f76b4fdf22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=DW1ALL39CPMMcfv9Sh7h2rW4bnOeSDuI%2FEiOM15PcoiN52DuZJrfoNokSKqCMHLaSwt%2BPiywxc8L2RpisDBl2KbpEJK0gZfdT0%2BNFd2SUiWj2VQBjd3jgyB8meht%2B2kg5fG5YU90Iz9Mdwo%2FeQ9%2F2plCqg3BRyKnWeSzzLh94rjbHjRuRoJNqolHRJD5"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-f6d1-718a-8a26-620d50d415a9
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=qCynK1…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 509
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":400,"error_code":"unknown","msg":"This email address is not allowed. Placeholder, reserved, or mistyped domains such as example.com or gmai.com cannot receive email."}
+
+----- Troca 2 -----
+# signup 30
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-mass-1794069558700-30@example.com","password":"****"}
+
+<<< HTTP 400 Bad Request   (744 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc67fff55df22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=VCCZrfz5muRFgdxtaJlNoYT5lvYbGTp0hAtNULgYrNyCORzBbjRQJnKjoCXDAs%2Bwoqy4SKL7rXT471MtIevmv%2FYvmj53He63ezjdZs1tr8DG%2FRKnqHmTVEw%2Fx6ovWU5Mj1jEZO7mOm8DQZu0TCG5w04V%2FNGYXi%2Bbyz2FWbf4Zar8G2CeQ6hkqhWr2oag"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e1-4c32-7aef-85d5-6b218d876ef5
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=elke9J…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 435
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":400,"error_code":"unknown","msg":"This email address is not allowed. Placeholder, reserved, or mistyped domains such as example.com or gmai.com cannot receive email."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status: {"400":30}. Contas criadas: 0. Os 30 cadastros foram barrados (400) pela validação de domínio de e-mail do GoTrue ("This email address is not allowed. Placeholder, reserved, or mistyped domains such as example.com … cannot receive email"), ANTES de qualquer rate limit. Logo o limite de volume de cadastro não chegou a ser exercido. Não foram usados e-mails reais entregáveis para cadastro em massa, por se tratar de aplicação em produção. Resultado: inconclusivo (para o rate limit de cadastro). Observação: há rate limit de autenticação/e-mail evidenciado em T2.1 e T4.4 (429), e a validação de domínio já barra domínios descartáveis.

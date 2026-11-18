@@ -1,0 +1,15 @@
+CASO T1.3 - Exclusão de tarefa alheia (token A, DELETE /tasks/{id de B})
+App: A3
+========================================================================
+# tentativa
+>>> DELETE http://localhost:3000/api/tasks/40
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 404 Not Found   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"23-kfHwci2bzba50QK9+WrCTw1fI20"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Tarefa não encontrada."}

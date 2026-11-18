@@ -1,0 +1,74 @@
+CASO T5.4 - Troca de método em rota restrita (cookie comum)
+App: B3
+========================================================================
+----- Troca 1 -----
+# PUT
+>>> PUT http://localhost:8080/api/admin/users/30751b2f-555f-4eee-88fe-8fdd5b59f49a/status
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=220, reset=887
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Acesso negado."}
+
+----- Troca 2 -----
+# POST
+>>> POST http://localhost:8080/api/admin/users/30751b2f-555f-4eee-88fe-8fdd5b59f49a/status
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 403 Forbidden   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=219, reset=887
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Acesso negado."}

@@ -1,0 +1,86 @@
+CASO T5.2 - Ação administrativa / campos protegidos (editar perfil alheio e is_active)
+App: A1
+========================================================================
+----- Troca 1 -----
+# PATCH profile do admin
+>>> PATCH https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/profiles?id=eq.669f76ff-2f8e-47f2-b53e-e3a70afcc693
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"name":"hack"}
+
+<<< HTTP 200 OK   (251 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d65e9d4d5fa-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=PoKPCsviO%2BYJpojYihf%2BT%2B9Cf66YoRrCmKWnl0hELLCsq7uCp1qM1eCeUOvmwHAUBkxLg1F2ucmMah5cH2Eez5Pbldovu2JTzXPOElqxec5QKFMvidKcAj71e7EAx9okzq9gIC5%2BUGQxoEr7m%2F6zRI7S%2BaEezH2yLcxsWmNO0GxPUt4CcnvzyKYZt0kR"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-9bc1-7dec-99c6-995b65437d31
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=NHp8qe…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 4
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 2 -----
+# PATCH próprio is_active=false
+>>> PATCH https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/profiles?id=eq.07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"is_active":false}
+
+<<< HTTP 200 OK   (250 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d67881a6288-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-profile: public
+<<< content-range: 0-0/*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=c2M7RQk4KoiD5UrL89TrRUYEB4K3dpEy%2FwrMeA%2FSgexgdF7UQs4gqC56EC4oXqgcwKLQFltFbX%2F1m2BhBbZBgI6cOdQO%2F4b93lGTgBkj62CZtmGjMZoz4m7LdHzvQuEYKAsnfcGHjjppci9wsS2PbCM6ef4YscBATovH6morQiOPm7dTbVx5NL8aIBC1"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-9cbf-79ab-aced-7611f040f869
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=h62Cf3…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 6
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< [{"id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec","name":"Thallys Conta 2","email":"pesquisador@email.removido","is_active":false,"created_at":"2026-11-06T17:11:01.786389+00:00","updated_at":"2026-11-07T15:06:05.485128+00:00"}]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+profiles: RLS "Users update own profile" (auth.uid()=id) + GRANT UPDATE(name) só; is_active não é atualizável pelo usuário.

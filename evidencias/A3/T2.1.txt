@@ -1,0 +1,61 @@
+CASO T2.1 - Força bruta no login (50 senhas erradas na conta A)
+App: A3
+========================================================================
+----- Troca 1 -----
+# tentativa 1
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (47 ms)
+<<< connection: keep-alive
+<<< content-length: 39
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"27-ppPz5O+YTt6LmM+t8dMt0VYMRbQ"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=33, reset=268
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"E-mail ou senha inválidos."}
+
+----- Troca 2 -----
+# tentativa 25
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (48 ms)
+<<< connection: keep-alive
+<<< content-length: 39
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"27-ppPz5O+YTt6LmM+t8dMt0VYMRbQ"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=9, reset=267
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"E-mail ou senha inválidos."}
+
+----- Troca 3 -----
+# tentativa 50
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 429 Too Many Requests   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 72
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"48-VL9Oi9ZJsjD+2yLIFfUVZfE3kjk"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=0, reset=267
+<<< ratelimit-policy: 50;w=900
+<<< retry-after: 267
+<<<
+<<< {"error":"Muitas tentativas. Aguarde alguns minutos e tente novamente."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Distribuição em 50 tentativas: {"401":34,"429":16}. Primeiro 429/403: tentativa 35. (express-rate-limit 50/15min compartilhado nas rotas de auth.)

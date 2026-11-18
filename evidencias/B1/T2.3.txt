@@ -1,0 +1,71 @@
+CASO T2.3 - Validação do token (assinatura inválida, alg none)
+App: B1
+========================================================================
+----- Troca 1 -----
+# assinatura inválida
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJI…zVnFSyr8 [872 chars]
+
+<<< HTTP 401 Unauthorized   (358 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e147f5e8d4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=PGRST301
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=2kltsC86oYG2XqXIzvcxtyG1ktsAodHjoJMfavIWmHJmPRElk653IksozDO7sB6i6PzTm9B4tmzrZIoUInkKv36ZG3CUhRX3%2FbymtwM3l7tTgK%2F0sH5escEuDAEIc9G4FdZw%2F5M4hcgW4IqDTobOmATDsz0gy2qKC62oEOtoHOR2PRPzcYBnA6%2Bk5rc%2B"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: HS256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-0ba3-70a9-af35-91dcb2edb245
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=b.p99B…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< www-authenticate: Bearer error="invalid_token", error_description="No suitable key or wrong key type"
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"PGRST301","details":"None of the keys was able to decode the JWT","hint":null,"message":"No suitable key or wrong key type"}
+
+----- Troca 2 -----
+# alg=none
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJu…YWxzZX0. [828 chars]
+
+<<< HTTP 401 Unauthorized   (318 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e14819b3f4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=PGRST301
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=s2DXz2WEEahU0wFLuNBu2MnzdAGtQfDFqlr8M5%2BhIxvzswJzxEdtwJk48gQtpEI%2BBS%2BhTkR0JGwcBd0PV2WUPw5WZB%2BeBGvcIwKJ%2BX64NHJy3zNlVCcLVHqD0ytUYxzi7tVAhMht89WMaYXg5L1XhB8%2FN2pD21iCbpinLM1P5FZfeBYWND6fO%2BOSLc%2BX"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-0d08-72d3-9941-52efd0627021
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=UCZRoo…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< www-authenticate: Bearer error="invalid_token", error_description="Wrong or unsupported encoding algorithm"
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"PGRST301","details":"JWT is unsecured but expected 'alg' was not 'none'","hint":null,"message":"Wrong or unsupported encoding algorithm"}

@@ -1,0 +1,10 @@
+CASO T8.5 - Segredos e padrões (inspeção .env e bundle)
+App: B1
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+.env do B1: só SUPABASE_URL + chave PUBLISHABLE (anon) - públicas por design. Sem service_role/sb_secret no repositório.
+client.server.ts usa SUPABASE_SERVICE_ROLE_KEY de process.env (lado servidor). ADMIN_SETUP_CODE em Secrets (Lovable), não no repo.
+Segredo JWT ES256 da plataforma. Confirmado no T2.5 (forja rejeitada).

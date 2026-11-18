@@ -1,0 +1,114 @@
+CASO T5.4 - Troca de método (DELETE em rotas sem GRANT; X-HTTP-Method-Override)
+App: A1
+========================================================================
+----- Troca 1 -----
+# DELETE /profiles (UUID fantasma)
+>>> DELETE https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/profiles?id=eq.00000000-0000-4000-8000-000000000000
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+>>> Prefer: return=representation
+
+<<< HTTP 200 OK   (319 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc684a8dbdf22-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=vyEzjvnQL%2ByDwUXBQvG3yJaofyf4t%2BK2E56FBE6ugA0TGTUUah5vCBADG2mQMTH0hwVqyCV811WviQtZOw0wKq8yqQSonXlc9anbuO5%2BXbev%2BxOBGLZHoY7RtFdBCuE225IEnSr4xqlxzivcu9vAzx54bjw7W%2FFaBERh%2FQviENsUO1VPz7zh%2FcOU2rWa"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e1-4ef1-7536-9c1b-d068c602df80
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=eYROI.…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 76
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 2 -----
+# DELETE /user_roles (UUID fantasma)
+>>> DELETE https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/user_roles?user_id=eq.00000000-0000-4000-8000-000000000000
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+>>> Prefer: return=representation
+
+<<< HTTP 200 OK   (722 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc6871c30f2b6-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=HurUJvdWLfQIk9bPelBfEuu9yr1L1Hb1fxO1oe108vyoWdyWcCDWhpQCtgga36rTZw%2B%2BoIWr%2F9qOUX6VhIo86UfPdbTXLfjcdDb%2BxVTsaapcTZIkDcu5XaI75xmAcwD0N2s9zLvs5Qew3yVg8NTmILxg2AE9DEeI6qlnXHKuzVlpHaiSjcj7AMEkAsAa"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e1-5081-7557-946a-eb2b045318d3
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=O53QV1…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 7
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 3 -----
+# GET + X-HTTP-Method-Override: DELETE
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/profiles?id=eq.00000000-0000-4000-8000-000000000000
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+>>> X-HTTP-Method-Override: DELETE
+
+<<< HTTP 200 OK   (253 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc68b2c4cdf22-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /profiles?id=eq.00000000-0000-4000-8000-000000000000
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=3zo1AJqTIPiduNDD2FGEHGKsKL%2FZup2Oh%2F8uYQPhv1%2FGn8m%2BPjXNAFivcFNNc3wZJ%2BSs15YFibQSYvWjOjbkr3AtOVlAxLW%2FCaTn1RDE7mDiZNSAqj%2BQ9dZd33nYYZJXvAreuOILEhGVuZxcZhQwjtCbSHAupP%2B7rLJWIDosdu%2BJjabBddUue0QatJGI"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e1-5302-75b3-a977-af92f4639775
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=OsW0DQ…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 8
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+PostgREST mapeia método HTTP -> operação SQL, cada uma sujeita ao GRANT da tabela e ao RLS. profiles tem GRANT só de SELECT e UPDATE(name); user_roles só SELECT; nenhuma recebe GRANT de DELETE para authenticated. Além disso, o RLS de profiles/user_roles NÃO tem policy de DELETE (só SELECT e, em profiles, UPDATE own). Resultado: DELETE/profiles=200 [], DELETE/user_roles=200 [] (0 linhas) e override=200 - o RLS bloqueia qualquer exclusão, tornando o DELETE um no-op (mesmo comportamento do DELETE de tarefa alheia em T1.3). X-HTTP-Method-Override é ignorado (tratado como GET). UUID fantasma garante que nenhuma linha real seria afetada. Resultado: não vulnerável, pois a troca de método não executa operação restrita.

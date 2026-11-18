@@ -1,0 +1,45 @@
+CASO T2.4 - Vida útil e logout (reusar token após logout)
+App: A3
+========================================================================
+----- Troca 1 -----
+# logout
+>>> POST http://localhost:3000/api/auth/logout
+>>> Authorization: Bearer eyJhbGciOiJI…LVieeMQ4 [148 chars]
+
+<<< HTTP 204 No Content   (4 ms)
+<<< connection: keep-alive
+<<< keep-alive: timeout=5
+<<<
+<<< 
+
+----- Troca 2 -----
+# reuso pós-logout (1)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…LVieeMQ4 [148 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 65
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"41-C3G6Jo6KGHPrvv1AkKm+3/ebG9g"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Sessão inválida ou expirada. Faça login novamente."}
+
+----- Troca 3 -----
+# reuso (2)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…LVieeMQ4 [148 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 65
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"41-C3G6Jo6KGHPrvv1AkKm+3/ebG9g"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Sessão inválida ou expirada. Faça login novamente."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Expiração do token: 8.0h (exp-iat).

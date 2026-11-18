@@ -1,0 +1,55 @@
+CASO T4.1 - Limite de requisições (300 GET /tasks em 60 s, 2 rodadas)
+App: A3
+========================================================================
+----- Troca 1 -----
+# rodada 1 - requisição 1 de 300
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…W8K4uf34 [148 chars]
+
+<<< HTTP 200 OK   (6 ms)
+<<< connection: keep-alive
+<<< content-length: 302
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"12e-PCcp+/K0Tapb7CLQS9e2l9J5EV0"
+<<< keep-alive: timeout=5
+<<<
+<<< {"data":[{"id":20,"title":"Tarefa A #20","description":"Descrição da tarefa 20 do usuário A","status":"concluida","priority":"alta","due_date":"2026-12-21","created_at":"2026-11-08T14:38:36.776Z","updated_at":"2026-11-08T14:38:36.776Z"}],"pagination":{"page":1,"limit":1,"total":20,"totalPages":20}}
+
+----- Troca 2 -----
+# rodada 1 - requisição 300 de 300
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…W8K4uf34 [148 chars]
+
+<<< HTTP 200 OK   (4 ms)
+<<< connection: keep-alive
+<<< content-length: 302
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"12e-PCcp+/K0Tapb7CLQS9e2l9J5EV0"
+<<< keep-alive: timeout=5
+<<<
+<<< {"data":[{"id":20,"title":"Tarefa A #20","description":"Descrição da tarefa 20 do usuário A","status":"concluida","priority":"alta","due_date":"2026-12-21","created_at":"2026-11-08T14:38:36.776Z","updated_at":"2026-11-08T14:38:36.776Z"}],"pagination":{"page":1,"limit":1,"total":20,"totalPages":20}}
+
+----- Troca 3 -----
+# rodada 2 - requisição 300 de 300
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…W8K4uf34 [148 chars]
+
+<<< HTTP 200 OK   (4 ms)
+<<< connection: keep-alive
+<<< content-length: 302
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"12e-PCcp+/K0Tapb7CLQS9e2l9J5EV0"
+<<< keep-alive: timeout=5
+<<<
+<<< {"data":[{"id":20,"title":"Tarefa A #20","description":"Descrição da tarefa 20 do usuário A","status":"concluida","priority":"alta","due_date":"2026-12-21","created_at":"2026-11-08T14:38:36.776Z","updated_at":"2026-11-08T14:38:36.776Z"}],"pagination":{"page":1,"limit":1,"total":20,"totalPages":20}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Procedimento (catálogo de casos): 300 requisições GET /api/tasks?limit=1 com o token do usuário A, disparadas a cada 200 ms (janela de 60 s), em duas rodadas.
+Rodada 1: 59.8s, status {"200":300}, 429: 0.
+Rodada 2: 59.8s, status {"200":300}, 429: 0.
+Cabeçalhos de rate limit nas respostas de /tasks: nenhum.
+Endpoint: API direta na porta 3000 (mesmo da execução original). O nginx do frontend (8080 -> /api) não tem limit_req, então o caminho pelo frontend não acrescenta limite.
+Resultado: nenhuma resposta 429 em 600 requisições (2 x 300/60 s). O limitador do A3 (50 req/15 min por IP) só está nas rotas de /auth; as rotas de dados (/tasks) ficam sem limite.
+Execução na ferramenta do catálogo (Postman Collection Runner, 08/11/2026 11:47, environment "A3 local", print A3-T4.1-postman-runner.png): 300 iterações de GET /api/tasks?limit=1, delay de 90 ms (+ ~110 ms de overhead do Runner por iteração), duração 59 s 604 ms, 0 erros, todas 200, nenhum 429. (Uma tentativa anterior com delay de 193 ms levou 1 min 31 s - fora da janela - e também teve 300 x 200.)
+Substitui a execução de 07/11/2026 (100 requisições em 0,3 s; print antigo do Runner com 100 iterações em 9 s), que não seguia o volume/janela do catálogo.

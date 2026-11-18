@@ -1,0 +1,8 @@
+CASO T4.5 - Cadastro em massa (30 cadastros seguidos)
+App: B2
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+30 cadastros. Status: {"201":8,"429":22}. (registerRateLimiter 15/IP/15min + ipRateLimiter.)

@@ -1,0 +1,54 @@
+CASO T1.6 - Sem autenticação (GET /tasks e /tasks/{id} sem token)
+App: A2
+========================================================================
+----- Troca 1 -----
+# GET /tasks sem token
+>>> GET http://localhost:3000/api/tasks
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 61
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"3d-cLBH73t+sAkrXe938i1P3ImETUA"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autorizado. Token de autenticação ausente."}
+
+----- Troca 2 -----
+# GET /tasks/{id} sem token
+>>> GET http://localhost:3000/api/tasks/23
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 61
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"3d-cLBH73t+sAkrXe938i1P3ImETUA"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autorizado. Token de autenticação ausente."}

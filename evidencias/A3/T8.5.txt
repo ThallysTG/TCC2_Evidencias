@@ -1,0 +1,13 @@
+CASO T8.5 - Segredos e padrões (inspeção de docker-compose.yml)
+App: A3
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml (A3-claude):
+  JWT_SECRET default = troque-este-segredo-em-producao (placeholder fixo, não trocado no deploy)
+  ADMIN_PASSWORD default = admin12345 ; ADMIN_EMAIL = admin@taskflow.local
+  POSTGRES_PASSWORD default = taskflow ; POSTGRES_USER = taskflow
+Confirmação prática em T2.5: token forjado com o JWT_SECRET default foi aceito pela API.
+Atenuante vs A2: o banco NÃO é publicado no host (sem "5432:5432").

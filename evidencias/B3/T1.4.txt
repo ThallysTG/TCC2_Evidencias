@@ -1,0 +1,59 @@
+CASO T1.4 - Listagem e filtros (GET /tasks e /tasks?userId=B)
+App: B3
+========================================================================
+----- Troca 1 -----
+# GET /tasks (só de A)
+>>> GET http://localhost:8080/api/tasks?pageSize=50
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (3 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=268, reset=899
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"f30ceac2-b763-4ecd-80cb-b6cceb36b1e1","title":"Tarefa A #15","description":"Descrição 15","status":"pendente","priority":"baixa","dueDate":"2026-12-16","createdAt":"2026-11-07T14:39:07.697Z","updatedAt":"2026-11-07T14:39:07.697Z"},{"id":"d1e4efa0-bafe-47a6-9de6-0456bafacf67","title":"Tarefa A #14","description":"Descrição 14","status":"concluida","priority":"alta","dueDate":"2026-12-15","createdAt":"2026-11-07T14:39:07.694Z","updatedAt":"2026-11-07T14:39:07.694Z"},{"id":"47ad8560-f904-4813-906c-12d70a7b053d","title":"Tarefa A #13","description":"Descrição 13","status":"em_andamento","priority":"media","dueDate":"2026-12-14","createdAt":"2026-11-07T14:39:07.691Z","updatedAt":"2026-11-07T14:39:07.691Z"},{"id":"698517c3-a509-41fe-be0b-54b6e7693eeb","title":"Tarefa A #12","description":"Descrição 12","status":"pendente","priority":"baixa","dueDate":"2026-12-13","createdAt":"2026-11-07T14:39:07.688Z","updatedAt":"2026-11-07T14:39:07.688Z"},{"id":"29e71e4e-5949-4434-bd3a-0ea5a000b7aa","title":"Tarefa A #11","description":"Descrição 11","status":"concluida","priority":"alta","dueDate":"2026-12-12","createdAt":"2026-11-07T14:39:07.685Z","updatedAt":"2026-11-07T14:39:07.685Z"},{"id":"13b2175e-fbb0-4816-ad1d-da810a719f80","title":"Tarefa A #10","description":"Descrição 10","status":"em_andamento","priority":"media","dueDate":"2026-12-11","createdAt":"2026-11-07T14:39:07.681Z","updatedAt":"2026-11-07T14:39:07.681Z"},{"id":"840b9cf8-67d8-434f-9643-101e21ccdf5d","title":"Tarefa A #9","description":"Descrição 9","status":"pendente","priority":"baixa","dueDate":"2026-12-10","createdAt":"2026-11-07T14:39:07.678Z","updatedAt":"2026-11-07T14:39:07.678Z"},{"id":"a60cba7c-1e7d-4e02-897b-aa059486b007","title":"Tarefa A #8","description":"Descrição 8","status":"concluida","priority":"alta","dueDate":"2026-12-09","createdAt":"2026-11-07T14:39:07.675Z","updatedAt":"2026-11-07T14:39:07.675Z"},{"id":"52f076aa-a27e-4c6e-a112-2c99f57464aa","title":"Tarefa A #7","description":"Descrição 7","status":"em_andamento","priority":"media","dueDate":"2026-12-08","createdAt":"2026-11-07T14:39:07.672Z","updatedAt":"2026-11-07T14:39:07.672Z"},{"id":"43971406-7df4-43cc-adab-a6e73efc0289","title":"Tarefa A #6","description":"Descrição 6","status":"pendente","priority":"baixa","dueDate":"2026-12-07","createdAt":"2026-11-07T14:39:07.669Z","updatedAt":"2026-11-07T14:39:07.669Z"},{"id":"b034afb0-6411-438d-a07b-52e26b981b1f","title":"Tarefa A #5","description":"Descrição 5","status":"concluida","priority":"alta","dueDate":"2026-12-06","createdAt":"2026-11-07T14:39:07.665Z","updatedAt":"2026-11-07T14:39:07.665Z"},{"id":"bcbd0bfb-af4b-4885-942e-2b78c14f525b","title":"Tarefa A #4","description":"Descrição 4","status":"em_andamento","priority":"media","dueDate":"2026-12-05","createdAt":"2026-11-07T14:39:07.662Z","updatedAt":"2026-11-07T14:39:07.662Z"},{"id":"02dfa194-2fc4-405c-a2c9-689129a19f8a","title":"Tarefa A #3","description":"Descrição 3","status":"pendente","priority":"baixa","dueDate":"2026-12-04","createdAt":"2026-11-07T14:39:07.657Z","updatedAt":"2026-11-07T14:39:07.657Z"},{"id":"882239ad-5a7d-4e86-a9af-94dd0a2e0c6d","title":"Tarefa A #2","description":"Descrição 2","status":"concluida","priority":"alta","dueDate":"2026-12-03","createdAt":"2026-11-07T14:39:07.654Z","updatedAt":"2026-11-07T14:39:07.654Z"},{"id":"7f24ab8d-fed8-4ea3-ab4b-ad1f9c9d3993","title":"Tarefa A #1","description":"Descrição 1","status":"em_andamento","priority":"media","dueDate":"2026-12-02","createdAt":"2026-11-07T14:39:07.649Z","updatedAt":"2026-11-07T14:39:07.649Z"}],"page":1,"pageSize":50,"total":15,"totalPages":1}
+
+----- Troca 2 -----
+# GET /tasks?userId=B
+>>> GET http://localhost:8080/api/tasks?pageSize=50&userId=30751b2f-555f-4eee-88fe-8fdd5b59f49a&user_id=30751b2f-555f-4eee-88fe-8fdd5b59f49a
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 77
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=267, reset=899
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Dados inválidos.","details":[{"message":"Campo não permitido."}]}

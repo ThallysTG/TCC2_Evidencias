@@ -1,0 +1,356 @@
+CASO ACEITACAO - Teste de aceitação funcional (CRUD, paginação, busca, filtro, perfil, admin)
+App: B3
+========================================================================
+----- Troca 1 -----
+# Criar (A)
+>>> POST http://localhost:8080/api/tasks
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"title":"Tarefa aceitação A","status":"pendente","priority":"alta"}
+
+<<< HTTP 201 Created   (4 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 224
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=84, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"e6dcd910-a80e-49ac-9100-74bdd16f3bb0","title":"Tarefa aceitação A","description":"","status":"pendente","priority":"alta","dueDate":null,"createdAt":"2026-11-07T14:39:08.527Z","updatedAt":"2026-11-07T14:39:08.527Z"}
+
+----- Troca 2 -----
+# Ler
+>>> GET http://localhost:8080/api/tasks/e6dcd910-a80e-49ac-9100-74bdd16f3bb0
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (3 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=280, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"e6dcd910-a80e-49ac-9100-74bdd16f3bb0","title":"Tarefa aceitação A","description":"","status":"pendente","priority":"alta","dueDate":null,"createdAt":"2026-11-07T14:39:08.527Z","updatedAt":"2026-11-07T14:39:08.527Z"}
+
+----- Troca 3 -----
+# Editar
+>>> PUT http://localhost:8080/api/tasks/e6dcd910-a80e-49ac-9100-74bdd16f3bb0
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"title":"Tarefa aceitação A (editada)","status":"concluida","priority":"media"}
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=83, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"e6dcd910-a80e-49ac-9100-74bdd16f3bb0","title":"Tarefa aceitação A (editada)","description":"","status":"concluida","priority":"media","dueDate":null,"createdAt":"2026-11-07T14:39:08.527Z","updatedAt":"2026-11-07T14:39:08.534Z"}
+
+----- Troca 4 -----
+# Excluir
+>>> DELETE http://localhost:8080/api/tasks/e6dcd910-a80e-49ac-9100-74bdd16f3bb0
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+
+<<< HTTP 204 No Content   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=82, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< 
+
+----- Troca 5 -----
+# Paginação
+>>> GET http://localhost:8080/api/tasks?page=2&pageSize=5
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (4 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=277, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"13b2175e-fbb0-4816-ad1d-da810a719f80","title":"Tarefa A #10","description":"Descrição 10","status":"em_andamento","priority":"media","dueDate":"2026-12-11","createdAt":"2026-11-07T14:39:07.681Z","updatedAt":"2026-11-07T14:39:07.681Z"},{"id":"840b9cf8-67d8-434f-9643-101e21ccdf5d","title":"Tarefa A #9","description":"Descrição 9","status":"pendente","priority":"baixa","dueDate":"2026-12-10","createdAt":"2026-11-07T14:39:07.678Z","updatedAt":"2026-11-07T14:39:07.678Z"},{"id":"a60cba7c-1e7d-4e02-897b-aa059486b007","title":"Tarefa A #8","description":"Descrição 8","status":"concluida","priority":"alta","dueDate":"2026-12-09","createdAt":"2026-11-07T14:39:07.675Z","updatedAt":"2026-11-07T14:39:07.675Z"},{"id":"52f076aa-a27e-4c6e-a112-2c99f57464aa","title":"Tarefa A #7","description":"Descrição 7","status":"em_andamento","priority":"media","dueDate":"2026-12-08","createdAt":"2026-11-07T14:39:07.672Z","updatedAt":"2026-11-07T14:39:07.672Z"},{"id":"43971406-7df4-43cc-adab-a6e73efc0289","title":"Tarefa A #6","description":"Descrição 6","status":"pendente","priority":"baixa","dueDate":"2026-12-07","createdAt":"2026-11-07T14:39:07.669Z","updatedAt":"2026-11-07T14:39:07.669Z"}],"page":2,"pageSize":5,"total":15,"totalPages":3}
+
+----- Troca 6 -----
+# Busca
+>>> GET http://localhost:8080/api/tasks?search=Tarefa A %231
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (3 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=276, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"f30ceac2-b763-4ecd-80cb-b6cceb36b1e1","title":"Tarefa A #15","description":"Descrição 15","status":"pendente","priority":"baixa","dueDate":"2026-12-16","createdAt":"2026-11-07T14:39:07.697Z","updatedAt":"2026-11-07T14:39:07.697Z"},{"id":"d1e4efa0-bafe-47a6-9de6-0456bafacf67","title":"Tarefa A #14","description":"Descrição 14","status":"concluida","priority":"alta","dueDate":"2026-12-15","createdAt":"2026-11-07T14:39:07.694Z","updatedAt":"2026-11-07T14:39:07.694Z"},{"id":"47ad8560-f904-4813-906c-12d70a7b053d","title":"Tarefa A #13","description":"Descrição 13","status":"em_andamento","priority":"media","dueDate":"2026-12-14","createdAt":"2026-11-07T14:39:07.691Z","updatedAt":"2026-11-07T14:39:07.691Z"},{"id":"698517c3-a509-41fe-be0b-54b6e7693eeb","title":"Tarefa A #12","description":"Descrição 12","status":"pendente","priority":"baixa","dueDate":"2026-12-13","createdAt":"2026-11-07T14:39:07.688Z","updatedAt":"2026-11-07T14:39:07.688Z"},{"id":"29e71e4e-5949-4434-bd3a-0ea5a000b7aa","title":"Tarefa A #11","description":"Descrição 11","status":"concluida","priority":"alta","dueDate":"2026-12-12","createdAt":"2026-11-07T14:39:07.685Z","updatedAt":"2026-11-07T14:39:07.685Z"},{"id":"13b2175e-fbb0-4816-ad1d-da810a719f80","title":"Tarefa A #10","description":"Descrição 10","status":"em_andamento","priority":"media","dueDate":"2026-12-11","createdAt":"2026-11-07T14:39:07.681Z","updatedAt":"2026-11-07T14:39:07.681Z"},{"id":"7f24ab8d-fed8-4ea3-ab4b-ad1f9c9d3993","title":"Tarefa A #1","description":"Descrição 1","status":"em_andamento","priority":"media","dueDate":"2026-12-02","createdAt":"2026-11-07T14:39:07.649Z","updatedAt":"2026-11-07T14:39:07.649Z"}],"page":1,"pageSize":10,"total":7,"totalPages":1}
+
+----- Troca 7 -----
+# Filtro
+>>> GET http://localhost:8080/api/tasks?status=concluida
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (3 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=275, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"d1e4efa0-bafe-47a6-9de6-0456bafacf67","title":"Tarefa A #14","description":"Descrição 14","status":"concluida","priority":"alta","dueDate":"2026-12-15","createdAt":"2026-11-07T14:39:07.694Z","updatedAt":"2026-11-07T14:39:07.694Z"},{"id":"29e71e4e-5949-4434-bd3a-0ea5a000b7aa","title":"Tarefa A #11","description":"Descrição 11","status":"concluida","priority":"alta","dueDate":"2026-12-12","createdAt":"2026-11-07T14:39:07.685Z","updatedAt":"2026-11-07T14:39:07.685Z"},{"id":"a60cba7c-1e7d-4e02-897b-aa059486b007","title":"Tarefa A #8","description":"Descrição 8","status":"concluida","priority":"alta","dueDate":"2026-12-09","createdAt":"2026-11-07T14:39:07.675Z","updatedAt":"2026-11-07T14:39:07.675Z"},{"id":"b034afb0-6411-438d-a07b-52e26b981b1f","title":"Tarefa A #5","description":"Descrição 5","status":"concluida","priority":"alta","dueDate":"2026-12-06","createdAt":"2026-11-07T14:39:07.665Z","updatedAt":"2026-11-07T14:39:07.665Z"},{"id":"882239ad-5a7d-4e86-a9af-94dd0a2e0c6d","title":"Tarefa A #2","description":"Descrição 2","status":"concluida","priority":"alta","dueDate":"2026-12-03","createdAt":"2026-11-07T14:39:07.654Z","updatedAt":"2026-11-07T14:39:07.654Z"}],"page":1,"pageSize":10,"total":5,"totalPages":1}
+
+----- Troca 8 -----
+# Editar perfil
+>>> PATCH http://localhost:8080/api/users/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Usuario A"}
+
+<<< HTTP 200 OK   (4 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=81, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"a87df00e-edec-4ea8-bc62-605f9417f054","name":"Usuario A","email":"usuario.a@teste.local","role":"user","createdAt":"2026-11-07T14:39:07.041Z"}
+
+----- Troca 9 -----
+# Admin listar
+>>> GET http://localhost:8080/api/admin/users
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (3 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=299, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"425da3a2-4272-4909-846e-4d9d2c4cfa0c","name":"xx","email":"novo-1794062347945@teste.local","role":"user","isActive":true,"taskCount":0,"createdAt":"2026-11-07T14:39:08.129Z"},{"id":"30751b2f-555f-4eee-88fe-8fdd5b59f49a","name":"Usuario B","email":"usuario.b@teste.local","role":"user","isActive":true,"taskCount":15,"createdAt":"2026-11-07T14:39:07.228Z"},{"id":"a87df00e-edec-4ea8-bc62-605f9417f054","name":"Usuario A","email":"usuario.a@teste.local","role":"user","isActive":true,"taskCount":15,"createdAt":"2026-11-07T14:39:07.041Z"},{"id":"7c28d5f7-c582-4864-98f8-3e95e27ac621","name":"Administrador","email":"admin@teste.local","role":"admin","isActive":true,"taskCount":0,"createdAt":"2026-11-07T14:38:55.630Z"}],"page":1,"pageSize":10,"total":4,"totalPages":1}
+
+----- Troca 10 -----
+# Admin desativar B
+>>> PATCH http://localhost:8080/api/admin/users/30751b2f-555f-4eee-88fe-8fdd5b59f49a/status
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 200 OK   (5 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=99, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"30751b2f-555f-4eee-88fe-8fdd5b59f49a","name":"Usuario B","email":"usuario.b@teste.local","role":"user","isActive":false,"taskCount":15,"createdAt":"2026-11-07T14:39:07.228Z"}
+
+----- Troca 11 -----
+# Admin reativar B
+>>> PATCH http://localhost:8080/api/admin/users/30751b2f-555f-4eee-88fe-8fdd5b59f49a/status
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"active":true}
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=98, reset=900
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"id":"30751b2f-555f-4eee-88fe-8fdd5b59f49a","name":"Usuario B","email":"usuario.b@teste.local","role":"user","isActive":true,"taskCount":15,"createdAt":"2026-11-07T14:39:07.228Z"}

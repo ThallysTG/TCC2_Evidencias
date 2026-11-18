@@ -1,0 +1,75 @@
+CASO T2.6 - Redefinição de senha (resposta genérica + comportamento gerenciado do GoTrue)
+App: A1
+========================================================================
+----- Troca 1 -----
+# recover e-mail EXISTENTE (autor)
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b@email.removido"}
+
+<<< HTTP 200 OK   (713 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5c819ea7ff0-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=fnO7GfPCeLepNwEZrrllxULHmVo7keLYMXn%2F69cDm3u97NLiDclqZkFUohY8AheyhqhLki02N8MZ3x%2F0zBwLGQZr%2F3JKmgDtvI61LFPE8Cv0lkibPCUhUCkrQNePbUT48B6NB%2BdXn%2FUrWwv6xR3YW9kvU%2FQE55%2BHaI0oIttXl8Fl2zO79PfC%2Fh8zUqji"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-d921-7fb0-acef-3ea031eb908f
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=2SXPue…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 477
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {}
+
+----- Troca 2 -----
+# recover e-mail inexistente
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794069551850@example.com"}
+
+<<< HTTP 200 OK   (248 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5cc9f23df22-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=zmR25eaTdkdzfBS9tB8tYYFY401v9Lh3FdPSqLO0RyVZqHXrSjbOhemb00csF5pDNe7vFWfayXXXUBq%2FE5CrewePE7d8FL1FtztAhH%2FU0kavb2BH%2FGDnoL1KU%2FTHWZugHxkdLi07DKNM3yTMr5PCgoqTVDbWWGagTJjPM0sLKJBACJ%2Fy9%2FXuSi1Dz5Z%2F"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-dbed-7b18-9cbf-b0f1a527dcaf
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=aSOYTE…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+GoTrue/Supabase gerencia o fluxo de recuperação:
+- Token de recuperação é aleatório/criptográfico (não previsível).
+- Uso único: ao trocar a senha o token é consumido/invalidado.
+- Expira (padrão 1h, configurável).
+Resposta IGUAL para e-mail existente x inexistente (200 x 200) -> sem enumeração.
+Reuso do link / expiração não exercidos ativamente (consumir o link alteraria a senha em produção); avaliados por comportamento gerenciado da plataforma.

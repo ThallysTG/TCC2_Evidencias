@@ -1,0 +1,30 @@
+CASO T5.1 - Listagem administrativa com token comum (GET /admin/users)
+App: A3
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> GET http://localhost:3000/api/admin/users
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}
+
+----- Troca 2 -----
+# 2ª
+>>> GET http://localhost:3000/api/admin/users
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 403 Forbidden   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}

@@ -1,0 +1,36 @@
+CASO T1.5 - Troca de dono (POST com user_id=B no corpo)
+App: B2
+========================================================================
+# criar com user_id/userId=B
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"Tarefa dono forjado","user_id":"6ca516d3-9a2c-462c-8b9f-67028da97860","userId":"6ca516d3-9a2c-462c-8b9f-67028da97860","status":"pendente","priority":"media"}
+
+<<< HTTP 201 Created   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 275
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"113-B56BalYL5/0UKAuF938rZK1kRvY"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 161
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Tarefa criada com sucesso.","task":{"id":"7b31c1e1-c095-4d99-b71b-04798d2cdd09","title":"Tarefa dono forjado","description":"","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T14:04:09.198Z","updated_at":"2026-11-07T14:04:09.198Z"}}

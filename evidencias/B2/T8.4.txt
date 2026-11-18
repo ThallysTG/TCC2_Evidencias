@@ -1,0 +1,99 @@
+CASO T8.4 - Exposição de tecnologia (X-Powered-By, Server, /.env)
+App: B2
+========================================================================
+----- Troca 1 -----
+# API /health (cabeçalhos)
+>>> GET http://localhost:3000/api/health
+
+<<< HTTP 200 OK   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 15
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 188
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"status":"ok"}
+
+----- Troca 2 -----
+# Frontend / (cabeçalhos)
+>>> GET http://localhost:5173/
+
+<<< HTTP 200 OK   (2 ms)
+<<< connection: keep-alive
+<<< content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' http://localhost:3000; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'
+<<< content-type: text/html; charset=utf-8
+<<< keep-alive: timeout=5
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-frame-options: DENY
+<<<
+<<< <!doctype html>
+<<< <html lang="pt-BR">
+<<<   <head>
+<<<     <meta charset="UTF-8" />
+<<<     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<     <title>TaskFlow — Gestão de Tarefas para Equipes</title>
+<<<     <script type="module" crossorigin src="/assets/index-BxJ_pI1k.js"></script>
+<<<     <link rel="stylesheet" crossorigin href="/assets/index-AKB2gx9f.css">
+<<<   </head>
+<<<   <body>
+<<<     <div id="root"></div>
+<<<   </body>
+<<< </html>
+<<< 
+<<< 
+
+----- Troca 3 -----
+# /.env
+>>> GET http://localhost:5173/.env
+
+<<< HTTP 200 OK   (3 ms)
+<<< connection: keep-alive
+<<< content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self' http://localhost:3000; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'
+<<< content-type: text/html; charset=utf-8
+<<< keep-alive: timeout=5
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-frame-options: DENY
+<<<
+<<< <!doctype html>
+<<< <html lang="pt-BR">
+<<<   <head>
+<<<     <meta charset="UTF-8" />
+<<<     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<     <title>TaskFlow — Gestão de Tarefas para Equipes</title>
+<<<     <script type="module" crossorigin src="/assets/index-BxJ_pI1k.js"></script>
+<<<     <link rel="stylesheet" crossorigin href="/assets/index-AKB2gx9f.css">
+<<<   </head>
+<<<   <body>
+<<<     <div id="root"></div>
+<<<   </body>
+<<< </html>
+<<< 
+<<< 
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+X-Powered-By(API)=(ausente); Server(API)=(ausente); Server(front)=(ausente); /.env status=200 (SPA fallback -> index.html, não vaza).

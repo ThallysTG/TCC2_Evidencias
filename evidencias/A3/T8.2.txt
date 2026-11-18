@@ -1,0 +1,20 @@
+CASO T8.2 - CORS (Origin de atacante)
+App: A3
+========================================================================
+# GET com Origin atacante
+>>> GET http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Origin: https://atacante.example
+
+<<< HTTP 200 OK   (3 ms)
+<<< connection: keep-alive
+<<< content-length: 2203
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"89b-ybwpfrsBZ7S910osZo0KBSbozgA"
+<<< keep-alive: timeout=5
+<<<
+<<< {"data":[{"id":20,"title":"Tarefa A #20","description":"Descrição 20 de A","status":"concluida","priority":"alta","due_date":"2026-12-21","created_at":"2026-11-07T03:48:45.749Z","updated_at":"2026-11-07T03:48:45.749Z"},{"id":19,"title":"Tarefa A #19","description":"Descrição 19 de A","status":"em_andamento","priority":"media","due_date":"2026-12-20","created_at":"2026-11-07T03:48:45.746Z","updated_at":"2026-11-07T03:48:45.746Z"},{"id":18,"title":"Tarefa A #18","description":"Descrição 18 de A","status":"pendente","priority":"baixa","due_date":"2026-12-19","created_at":"2026-11-07T03:48:45.743Z","updated_at":"2026-11-07T03:48:45.743Z"},{"id":17,"title":"Tarefa A #17","description":"Descrição 17 de A","status":"concluida","priority":"alta","due_date":"2026-12-18","created_at":"2026-11-07T03:48:45.740Z","updated_at":"2026-11-07T03:48:45.740Z"},{"id":16,"title":"Tarefa A #16","description":"Descrição 16 de A","status":"em_andamento","priority":"media","due_date":"2026-12-17","created_at":"2026-11-07T03:48:45.737Z","updated_at":"2026-11-07T03:48:45.737Z"},{"id":15,"title":"Tarefa A #15","description":"Descrição 15 de A","status":"pendente","priority":"baixa","due_date":"2026-12-16","created_at":"2026-11-07T03:48:45.734Z","updated_at":"2026-11-07T03:48:45.734Z"},{"id":14,"title":"Tarefa A #14","description":"Descrição 14 de A","status":"concluida","priority":"alta","due_date":"2026-12-15","created_at":"2026-11-07T03:48:45.730Z","updated_at":"2026-11-07T03:48:45.730Z"},{"id":13,"title":"Tarefa A #13","description":"Descrição 13 de A","status":"em_andamento","priority":"media","due_date":"2026-12-14","created_at":"2026-11-07T03:48:45.727Z","updated_at":"2026-11-07T03:48:45.727Z"},{"id":12,"title":"Tarefa A #12","description":"Descrição 12 de A","status":"pendente","priority":"baixa","due_date":"2026-12-13","created_at":"2026-11-07T03:48:45.724Z","updated_at":"2026-11-07T03:48:45.724Z"},{"id":11,"title":"Tarefa A #11","description":"Descrição 11 de A","status":"concluida","priority":"alta","due_date":"2026-12-12","created_at":"2026-11-07T03:48:45.721Z","updated_at":"2026-11-07T03:48:45.721Z"}],"pagination":{"page":1,"limit":10,"total":20,"totalPages":2}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Access-Control-Allow-Origin=(ausente), Allow-Credentials=(ausente). CORS só habilitado se CORS_ORIGIN definido (default vazio -> sem cabeçalhos CORS).

@@ -1,0 +1,85 @@
+CASO T1.4 - Listagem e filtro forçado (userA lista tudo e tenta ?user_id=admin)
+App: A1
+========================================================================
+----- Troca 1 -----
+# GET /tasks
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id,title,user_id&limit=50
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+
+<<< HTTP 200 OK   (247 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d5578aa6288-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-location: /tasks?limit=50&select=id%2Ctitle%2Cuser_id
+<<< content-profile: public
+<<< content-range: 0-11/*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=zPly6RQdIYbqcns2jUPQ4r1Ncdxlu2GZeWUWTE%2Bc5PJD2b3BJVWTv4Vc8uOIhPJjgleBjNRtwymSUNAneJ1q%2BFxiDZee3xh0xLREm8MT8NUXCH1v4cz9yGdyeyXzrhvxxtcqQlrI%2F2xMaG5hDk4W4yKQyKDkppCmLk9mAGBysIhEfGh95YqTpVKl5%2Brb"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-9176-798f-a134-cd551bf607e0
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=CSBqOP…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 5
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< [{"id":"07dd3a06-1dba-4a32-afba-408dcf2ee5aa","title":"Tarefa A #1","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"5c7bde0e-6a9a-425c-936e-a358638bfd61","title":"Tarefa A #2","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"61cf1869-c6c6-4886-900f-63d9d03b4377","title":"Tarefa A #3","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"75e06e36-3f5f-46a0-8986-0b492b2b8763","title":"Tarefa A #4","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"b71152b6-cc75-47e8-9911-6638e077d799","title":"Tarefa A #5","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"2c90a3a4-6ec8-440c-994f-9883160bd975","title":"Tarefa A #6","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"7f83825a-c3d5-471d-9632-058c9400af61","title":"Tarefa A #7","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"3e489b7f-1f0a-4d66-9b75-e970956ae9df","title":"Tarefa A #8","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"744df9d6-b36c-44e4-849e-df12d82ffee5","title":"Tarefa A #9","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"0db6eba1-31be-47b0-bcdb-3494c1291c13","title":"Tarefa A #10","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"f1f2278c-a783-4472-8d53-ca0e7c1cd3c3","title":"Tarefa A #11","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}, 
+<<<  {"id":"79b57bae-fbed-4309-b156-dc2ff754fcc4","title":"Tarefa A #12","user_id":"07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec"}]
+
+----- Troca 2 -----
+# GET /tasks?user_id=admin
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?user_id=eq.669f76ff-2f8e-47f2-b53e-e3a70afcc693&select=*
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+
+<<< HTTP 200 OK   (241 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d56f9f16288-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?select=%2A&user_id=eq.669f76ff-2f8e-47f2-b53e-e3a70afcc693
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=agRraZwiUr3WdmoAB%2BtjOThUcK2Svt2rE1vT0%2F5HjmadAnKmz6pHHxTM9qhKe4LqDTEJLXnODr0pemi9ESpuI38A2bddPgdgvrhKD2ydL7VeQHwHWdcfgaqwsfn%2FtifRXaMpI07dOq%2BspTPf0Fx%2FLa38dApsMkIDK2rGLCML9IUoO8qOy%2FcNRG%2FPeCYd"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-9268-71c0-9278-49de5f79d49c
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=0U4ZO4…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 5
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []

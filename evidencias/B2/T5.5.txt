@@ -1,0 +1,37 @@
+CASO T5.5 - Controle apenas na interface (rota do painel com token comum)
+App: B2
+========================================================================
+# GET /admin/users token comum
+>>> GET http://localhost:3000/api/admin/users
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+
+<<< HTTP 403 Forbidden   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 151
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Acesso restrito a administradores."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+O painel aparece no bundle do frontend, mas o backend aplica authenticate+requireAdmin no servidor.

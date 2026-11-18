@@ -1,0 +1,12 @@
+CASO T8.5 - Segredos e padrões (inspeção de docker-compose.yml e .env)
+App: B3
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml (B3-claude): SEM defaults - usa ${VAR:?Defina ... no .env}. Banco e backend SEM "ports" (não expostos).
+.env: POSTGRES_PASSWORD e JWT_SECRET são valores aleatórios fortes (hex). .env.example traz apenas placeholders "troque-...".
+config.js valida na inicialização: JWT_SECRET ≥ 32 chars, credenciais do banco e FRONTEND_ORIGIN obrigatórios.
+README orienta NÃO versionar o .env e gerar segredos com openssl. Container backend read_only + no-new-privileges + tmpfs.
+Sem placeholders tipo "troque-este-segredo" nem senhas fracas em uso.

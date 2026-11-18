@@ -1,0 +1,32 @@
+CASO T4.1 - Limite de requisições (300 GET /tasks em janela curta)
+App: A2
+========================================================================
+# exemplo (1 de 300)
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+
+<<< HTTP 200 OK   (89 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 377
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"179-K5PDXRKGxR8jiY14UQcyqUnOxzU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"tasks":[{"id":3,"user_id":2,"title":"Tarefa A #3","description":"Descrição da tarefa 3 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-04","created_at":"2026-11-07T00:02:25.051Z","updated_at":"2026-11-07T00:02:25.051Z"}],"pagination":{"page":1,"limit":1,"total":20,"totalPages":20},"stats":{"total":20,"pendente":6,"em_andamento":7,"concluida":7}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+300 requisições em 0.8s. Status: {"200":300}. 429: 0.

@@ -1,0 +1,51 @@
+CASO T5.3 - Autopromoção (role=admin no cadastro e no perfil)
+App: A3
+========================================================================
+----- Troca 1 -----
+# cadastro role=admin
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Promovido","email":"autopromo-1794023326112@teste.local","password":"****","role":"admin","active":true}
+
+<<< HTTP 201 Created   (48 ms)
+<<< connection: keep-alive
+<<< content-length: 309
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"135-NDTq2Xp3c52Np4LbeCEuQFF2Ov8"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=39, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"token":"eyJhbGciOiJI…MQ4Vjveg [148 chars]","user":{"id":6,"name":"Promovido","email":"autopromo-1794023326112@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:46.157Z"}}
+
+----- Troca 2 -----
+# perfil role=admin
+>>> PUT http://localhost:3000/api/profile
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Usuario A","email":"usuario.a@teste.local","role":"admin"}
+
+<<< HTTP 200 OK   (3 ms)
+<<< connection: keep-alive
+<<< content-length: 136
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"88-msaplKYlm9+c3s2saTl6p60/+c8"
+<<< keep-alive: timeout=5
+<<<
+<<< {"user":{"id":2,"name":"Usuario A","email":"usuario.a@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:45.614Z"}}
+
+----- Troca 3 -----
+# role de A depois
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 200 OK   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 136
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"88-msaplKYlm9+c3s2saTl6p60/+c8"
+<<< keep-alive: timeout=5
+<<<
+<<< {"user":{"id":2,"name":"Usuario A","email":"usuario.a@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:45.614Z"}}

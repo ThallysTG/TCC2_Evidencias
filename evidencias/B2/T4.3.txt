@@ -1,0 +1,36 @@
+CASO T4.3 - Tamanho do corpo (descrição de 1 MB)
+App: B2
+========================================================================
+# corpo ~1 MB
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"grande","description":"<1 MB de 'A'>","status":"pendente","priority":"baixa"}
+
+<<< HTTP 413 Payload Too Large   (48 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 80
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"50-rg1MLPMOuMfaUuRIfaOW4eS+O5E"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 186
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"O tamanho da requisição excede o limite máximo permitido (16 KB)."}

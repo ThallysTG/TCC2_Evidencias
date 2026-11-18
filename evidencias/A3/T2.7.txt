@@ -1,0 +1,114 @@
+CASO T2.7 - Enumeração de usuários (register/login/forgot: existente x inexistente)
+App: A3
+========================================================================
+----- Troca 1 -----
+# register e-mail EXISTENTE
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"x","email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 409 Conflict   (49 ms)
+<<< connection: keep-alive
+<<< content-length: 100
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"64-8o7Ja6qlRrjGmeCfQfgOYsco15Q"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=45, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"Este e-mail já está cadastrado.","fields":{"email":"Este e-mail já está cadastrado."}}
+
+----- Troca 2 -----
+# register e-mail NOVO
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"x","email":"novo-1794023325874@teste.local","password":"****"}
+
+<<< HTTP 201 Created   (56 ms)
+<<< connection: keep-alive
+<<< content-length: 296
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"128-oCHloDd4XXwd2wI+gbptfE2+XLQ"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=44, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"token":"eyJhbGciOiJI…b3xHesDM [148 chars]","user":{"id":5,"name":"x","email":"novo-1794023325874@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:45.928Z"}}
+
+----- Troca 3 -----
+# login existente (senha errada)
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (48 ms)
+<<< connection: keep-alive
+<<< content-length: 39
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"27-ppPz5O+YTt6LmM+t8dMt0VYMRbQ"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=43, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"E-mail ou senha inválidos."}
+
+----- Troca 4 -----
+# login inexistente
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794023325978@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (48 ms)
+<<< connection: keep-alive
+<<< content-length: 39
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"27-ppPz5O+YTt6LmM+t8dMt0VYMRbQ"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=42, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"E-mail ou senha inválidos."}
+
+----- Troca 5 -----
+# forgot existente
+>>> POST http://localhost:3000/api/auth/forgot-password
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local"}
+
+<<< HTTP 200 OK   (8 ms)
+<<< connection: keep-alive
+<<< content-length: 95
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"5f-ADw8tWfX3sw+/A4JMt8I4fGFml8"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=41, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"message":"Se o e-mail estiver cadastrado, você receberá um link para redefinir sua senha."}
+
+----- Troca 6 -----
+# forgot inexistente
+>>> POST http://localhost:3000/api/auth/forgot-password
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794023326034@teste.local"}
+
+<<< HTTP 200 OK   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 95
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"5f-ADw8tWfX3sw+/A4JMt8I4fGFml8"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=40, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"message":"Se o e-mail estiver cadastrado, você receberá um link para redefinir sua senha."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status - register: existente=409 vs novo=201; login: 401 vs 401; forgot: 200 vs 200.

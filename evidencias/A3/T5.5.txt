@@ -1,0 +1,19 @@
+CASO T5.5 - Controle apenas na interface (rota do painel com token comum)
+App: A3
+========================================================================
+# GET /admin/users token comum
+>>> GET http://localhost:3000/api/admin/users
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+O painel aparece no bundle do frontend, mas o backend aplica authenticate+requireAdmin no servidor.

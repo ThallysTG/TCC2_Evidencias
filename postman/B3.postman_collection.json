@@ -1,0 +1,173 @@
+{
+  "info": {
+    "name": "TCC - B3 (Claude, condição B) - API Security",
+    "description": "Controles do B3 (0 vulnerabilidades). Auth por cookie HttpOnly; API só via nginx :8080/api. As respostas esperadas são 201 (sem enumeração), 403 (BFLA), 401 (cookie forjado) e cabeçalhos de segurança presentes.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API2 - T2.7 Enumeração (controle OK)",
+      "item": [
+        {
+          "name": "T2.7a Cadastro e-mail EXISTENTE -> 201 (idêntico)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teste Enum\",\n  \"email\": \"usuario.b@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "E-mail já cadastrado -> 201 com a MESMA mensagem de T2.7b. O cadastro (INSERT ... ON CONFLICT DO NOTHING) nunca revela se o e-mail existe. Sem enumeração."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.7b Cadastro e-mail NOVO -> 201 (idêntico)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Teste Enum\",\n  \"email\": \"novo-enum-{{$timestamp}}@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "E-mail novo -> 201. Resposta idêntica à de T2.7a (mesmo status e corpo)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API5 - BFLA (controle OK)",
+      "item": [
+        {
+          "name": "T5.1 GET /admin/users com cookie comum (B) -> 403",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "taskflow_session=eyJhbGciOiJI…SV90cftI [304 chars]"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/admin/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            },
+            "description": "Cookie de usuário comum -> 403 \"Acesso negado\" (authenticate + requireAdmin verificam o perfil no banco)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API2 - T2.5 cookie forjado (controle OK)",
+      "item": [
+        {
+          "name": "T2.5 /auth/me com cookie FORJADO (segredo default) -> 401",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Cookie",
+                "value": "taskflow_session=eyJhbGciOiJI…1z6oUgpk [304 chars]"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/auth/me",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "auth",
+                "me"
+              ]
+            },
+            "description": "Cookie forjado com segredo DEFAULT/fraco. O segredo real é forte (64 hex) e há verificação de emissor/audiência + sessão no banco -> 401."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API8 - T8.1 cabeçalhos (controle OK)",
+      "item": [
+        {
+          "name": "T8.1 GET frontend :8080 -> aba Headers (CSP, HSTS, X-Frame-Options DENY)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": []
+            },
+            "description": "Abra a aba Headers: Content-Security-Policy, Strict-Transport-Security, X-Content-Type-Options nosniff, X-Frame-Options DENY, Referrer-Policy, Permissions-Policy, COOP. Sem Server nem X-Powered-By."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

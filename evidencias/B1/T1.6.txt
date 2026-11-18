@@ -1,0 +1,33 @@
+CASO T1.6 - Sem autenticação (só apikey anon)
+App: B1
+========================================================================
+# GET /tasks anon
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=*&limit=5
+>>> apikey: sb_publishable_[chave removida]
+
+<<< HTTP 401 Unauthorized   (634 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e14682b1e70c6-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=444GiaJCILpkSDlmiGbwsOYd6ltw%2Bd8xGabnuH%2B0sgJ7LS8wJLJk0uGNI7aJPm2iwWK1%2BoODeNLQPpVYbqU6pufQBR24pK7FkqLg7IRguXW5ukoYu%2ByIiGR7Jg%2FVFbp81EtbNmges1hRdbKxU%2FtQtPT4XvZ7CFKCERCsB%2FE1d7r9C3DpMx0Q%2Fjd%2B2UvW"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b711-fd23-7032-b2ab-54b4f2b0d8f5
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=pJu5VR…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< www-authenticate: Bearer
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 18
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":"Grant the required privileges to the current role with: GRANT SELECT ON public.tasks TO anon;","message":"permission denied for table tasks"}

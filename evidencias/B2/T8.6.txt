@@ -1,0 +1,13 @@
+CASO T8.6 - Configuração do banco (porta 5432 exposta no host)
+App: B2
+========================================================================
+# teste TCP
+>>> TCP 127.0.0.1:5432
+
+<<< HTTP ABERTA    (0 ms)
+<<<
+<<< Conexão TCP aceita.
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml do B2 publica a porta do banco no host ("5432:5432" no serviço db).

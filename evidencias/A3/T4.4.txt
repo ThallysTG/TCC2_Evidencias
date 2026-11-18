@@ -1,0 +1,8 @@
+CASO T4.4 - Fluxo custoso (20 pedidos de redefinição)
+App: A3
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+20 pedidos. Status: {"429":20}. (rate limiter de auth compartilhado.)

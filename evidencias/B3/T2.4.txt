@@ -1,0 +1,95 @@
+CASO T2.4 - Vida útil e logout (reusar cookie após logout)
+App: B3
+========================================================================
+----- Troca 1 -----
+# logout
+>>> POST http://localhost:8080/api/auth/logout
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+
+<<< HTTP 204 No Content   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=211, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< 
+
+----- Troca 2 -----
+# reuso (1)
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=210, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 3 -----
+# reuso (2)
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=209, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Expiração da sessão: 120 min (SESSION_TTL_MINUTES).

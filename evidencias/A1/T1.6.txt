@@ -1,0 +1,32 @@
+CASO T1.6 - Sem autenticação (só apikey anon, sem token de usuário)
+App: A1
+========================================================================
+# GET /tasks anon
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=*&limit=5
+>>> apikey: sb_publishable_[chave removida]
+
+<<< HTTP 200 OK   (242 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d5ddf8c6288-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?limit=5&select=%2A
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=SLipgbYiDNESHEUOmT%2FYByex%2Bkecs0hZm8CxaQ9GdbfBdhPCM159spWPq3lxSiwZu7kWMpmEkUvJq2OQzM5R%2BcQl5tdOneif8bPLPUAy9CbNXWCE2PQcfb%2ByXX5E1d3a3xRS9qXpeKK8eUyMlfBmI4ZX%2FucSlKw3nyy0VH9tXM8I%2BH7JgXoi2UrmTxx%2F"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-96b1-7ed6-8ef8-cdcfeffb7396
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=8G3WMD…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 4
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []

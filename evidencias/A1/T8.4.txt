@@ -1,0 +1,121 @@
+CASO T8.4 - Exposição de tecnologia (Server, X-Powered-By)
+App: A1
+========================================================================
+----- Troca 1 -----
+# site
+>>> GET https://tarefa-time-organizador.lovable.app/
+
+<<< HTTP 200 OK   (300 ms)
+<<< cache-control: no-cache, must-revalidate, max-age=0
+<<< cf-ray: a56d3d857ccf98e7-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: text/html; charset=utf-8
+<<< referrer-policy: strict-origin-when-cross-origin
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=lacUMl…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-deployment-id: psr2.30bc9a7e-7fbc-47df-98a4-9fce8c4641ca.1794668770.-Ub5PDp_-oqRoNuVZ2gfCgOmYKyrO31vGvurms74A5U
+<<<
+<<< <!DOCTYPE html><html lang="pt-BR"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Sora:wght@500;600;700&amp;display=swap" data-precedence="default"/><link rel="stylesheet" href="/assets/styles-B6IOmY2w.css" data-precedence="default"/><title>TaskFlow — Gestão de tarefas para equipes pequenas</title><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="description" content="Organize as tarefas da sua equipe com status, prioridade e prazos. Simples, rápido e em português."/><meta property="og:title" content="TaskFlow — Gestão de tarefas para equipes pequenas"/><meta property="og:description" content="Organize as tarefas da sua equipe com status, prioridade e prazos."/><link rel="modulepreload" href="/assets/index-DyUbYn8s.js"/><link rel="modulepreload" href="/assets/button-BuLbGMo-.js"/><link rel="modulepreload" href="/assets/react-dom-00iAKy-e.js"/><link rel="modulepreload" href="/assets/not-found-DIgawKw1.js"/><link rel="modulepreload" href="/assets/invariant-CgFvOqN2.js"/><link rel="modulepreload" href="/assets/link-DYAKcviL.js"/><link rel="modulepreload" href="/assets/matchContext-Cb-2A7T7.js"/><link rel="modulepreload" href="/assets/preload-helper-BIWBRN4b.js"/><link rel="modulepreload" href="/assets/useRouter-675ZLaL5.js"/><link rel="modulepreload" href="/assets/QueryClientProvider-C3-lDwd5.js"/><link rel="modulepreload" href="/assets/tasks-BKGIYb2s.js"/><link rel="modulepreload" href="/assets/routes-DUAo74Hr.js"/><link rel="modulepreload" href="/assets/use-current-user-CGbqELaI.js"/><link rel="modulepreload" href="/assets/createLucideIcon-D7iwHl90.js"/><link rel="modulepreload" href="/assets/brand-logo-IoTyqrfR.js"/><link rel="modulepreload" href="/assets/search-DCZfQixh.js"/><link rel="modulepreload" href="/assets/users-BsduTKkt.js"/><link rel="modulepreload" href="/assets/badge-BTzSmGFU.js"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+<<< <style>
+<<< 	#lovable-badge {
+<<< 		--badge-bg: #1b1b1b;
+<<< 		--badge-text: #c5c1b9;
+<<< 		--badge-text-hover: #dcdad5;
+<<< 		--badge-radius: 6px;
+<<< 		--badge-padding: 8px;
+<<< 		--badge-gap: 6px;
+<<< 		--badge-shadow: 
+<<< 			0 0 0 1px rgba(0, 0, 0, 0.88),
+<<< 			0 1px 0 0 rgba(0, 0, 0, 0.04),
+<<< 			0 2px 2px -1px rgba(0, 0, 0, 0.08),
+<<< 			0 4px 4px -2px rgba(0, 0, 0, 0.08),
+<<< 			0 8px 8px -4px rgba(0, 0, 0, 0.08),
+<<< 			0 16px 16px -8px rgba(0, 0, 0, 0.08);
+<<< 		--badge-transition-duration: 0.2s;
+<<< 		--badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+<<< 		--focus-color: #575ECF;
+<<< 		--focus-offset: 2px;
+<<< 		--focus-width: 2px;
+<<< 		
+<<< 		position: fixed;
+<<< 		bottom: 12px;
+<<< 		right: 12px;
+<<< 		height: 24px;
+<<< 		display: flex;
+<<< 		align-items: center;
+<<< 		z-index: 1000000;
+<<< 		background-color: var(--badge-bg) !important;
+<<< 		color: var(--badge-text) !important;
+<<< 		border-radius: var(--badge-radius);
+<<< 		box-shadow: var(--badge-shadow) !important;
+<<< 		font-size: 12px;
+<<< 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+<<< 		font-weight: 400 !important;
+<<< 		text-transform: none !important;
+<<< 		font-feature-settings: normal !important;
+<<< 		transform: translateZ(0);
+<<< 		will-change: transform, opacity;
+<<< 		transition: opacity var(--badge-transition-duration) var(--badge-transition-easing);
+<<< 	}
+<<< 
+<<< 	#lovable-badge.closing {
+<<< 		opacity: 0;
+<<< 		pointer-events: none;
+<<< 	}
+<<< 
+<<< 	#lovable-badge-cta {
+<<< 		display: flex;
+<<< 		align-items: baseline;
+<<< 		gap: var(--badge-gap);
+<<< 		box-sizing: border-box;
+<<< 		padding: 4px var(--badge-padding) 0;
+<<< 		height: 100%;
+<<< 		color: inherit;
+<<< 		text-decoration: none;
+<<< 		white-space: nowrap;
+<<< 		border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+<<< 		transition: 
+<<< 			background-color var(--badge-transition-duration) ease,
+<<< 			color var(--badge-transition-duration) ease,
+<<< 		
+<<< …[+20701 chars truncados]
+
+----- Troca 2 -----
+# REST base
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/
+>>> apikey: sb_publishable_[chave removida]
+
+<<< HTTP 200 OK   (316 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d875ac36288-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-profile: public
+<<< content-type: application/openapi+json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Qd%2FVkfil1s9k9dvy9PaaPfKxhMVUV0Vt3rb6aoQ3ltklgaOHNXNfMuxEl1EZs1TiwdpgvlEkgscrD3nBN25FARr7I%2BfLXI6TSRquHjPeBvFEgvFo8tnMdKtYInf3IXv3iAILPqpvEZmTqIXARDn%2FNw4IRQ%2FdvSiYdzUIMK%2FChdI9EF3ZEq1P7KzLgLxt"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-b0a1-76a2-ad35-042d5e2a91a7
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=IYS609…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 78
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"swagger":"2.0","info":{"description":"","title":"standard public schema","version":"14.18"},"host":"pkjsdqbvdqvhubfkzndv.supabase.co:443","basePath":"/","schemes":["https"],"consumes":["application/json","application/vnd.pgrst.object+json;nulls=stripped","application/vnd.pgrst.object+json","text/csv"],"produces":["application/json","application/vnd.pgrst.object+json;nulls=stripped","application/vnd.pgrst.object+json","text/csv"],"paths":{"/":{"get":{"produces":["application/openapi+json","application/json"],"responses":{"200":{"description":"OK"}},"summary":"OpenAPI description (this document)","tags":["Introspection"]}},"/tasks":{"get":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/rowFilter.tasks.due_date"},{"$ref":"#/parameters/rowFilter.tasks.created_at"},{"$ref":"#/parameters/rowFilter.tasks.updated_at"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/order"},{"$ref":"#/parameters/range"},{"$ref":"#/parameters/rangeUnit"},{"$ref":"#/parameters/offset"},{"$ref":"#/parameters/limit"},{"$ref":"#/parameters/preferCount"}],"responses":{"200":{"description":"OK","schema":{"items":{"$ref":"#/definitions/tasks"},"type":"array"}},"206":{"description":"Partial Content"}},"tags":["tasks"]},"post":{"parameters":[{"$ref":"#/parameters/body.tasks"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/preferPost"}],"responses":{"201":{"description":"Created"}},"tags":["tasks"]},"delete":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/rowFilter.tasks.due_date"},{"$ref":"#/parameters/rowFilter.tasks.created_at"},{"$ref":"#/parameters/rowFilter.tasks.updated_at"},{"$ref":"#/parameters/preferReturn"}],"responses":{"204":{"description":"No Content"}},"tags":["tasks"]},"patch":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/rowFilter.tasks.due_date"},{"$ref":"#/parameters/rowFilter.tasks.created_at"},{"$ref":"#/parameters/rowFilter.tasks.updated_at"},{"$ref":"#/parameters/body.tasks"},{"$ref":"#/parameters/preferReturn"}],"responses":{"204":{"description":"No Content"}},"tags":["tasks"]}},"/profiles":{"get":{"parameters":[{"$ref":"#/parameters/rowFilter.profiles.id"},{"$ref":"#/parameters/rowFilter.profiles.name"},{"$ref":"#/parameters/rowFilter.profiles.email"},{"$ref":"#/parameters/rowFilter.profiles.is_active"},{"$ref":"#/parameters/rowFilter.profiles.created_at"},{"$ref":"#/parameters/rowFilter.profiles.updated_at"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/order"},{"$ref":"#/parameters/range"},{"$ref":"#/parameters/rangeUnit"},{"$ref":"#/parameters/offset"},{"$ref":"#/parameters/limit"},{"$ref":"#/parameters/preferCount"}],"responses":{"200":{"description":"OK","schema":{"items":{"$ref":"#/definitions/profiles"},"type":"array"}},"206":{"description":"Partial Content"}},"tags":["profiles"]},"post":{"parameters":[{"$ref":"#/parameters/body.profiles"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/preferPost"}],"responses":{"201":{"description":"Created"}},"tags":["profiles"]},"delete":{"parameters":[{"$ref":"#/parameters/rowFilter.profiles.id"},{"$ref":"#/parameters/rowFilter.profiles.name"},{"$ref":"#/parameters/rowFilter.profiles.email"},{"$ref":"#/parameters/rowFilter.profiles.is_active"},{"$ref":"#/parame
+<<< …[+9677 chars truncados]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+X-Powered-By=(ausente); Server(site)=cloudflare; Server(REST)=cloudflare.

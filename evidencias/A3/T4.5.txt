@@ -1,0 +1,8 @@
+CASO T4.5 - Cadastro em massa (30 cadastros seguidos)
+App: A3
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+30 cadastros. Status: {"429":30}. (rate limiter de auth compartilhado.)

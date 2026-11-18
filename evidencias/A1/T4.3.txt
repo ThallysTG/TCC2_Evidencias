@@ -1,0 +1,84 @@
+CASO T4.3 - Tamanho do corpo (POST tarefa com descrição de 1 MB e 10 MB)
+App: A1
+========================================================================
+----- Troca 1 -----
+# descrição 1 MB
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"title":"T4.3 1MB","description":"<1 MB de 'x'>",...}
+
+<<< HTTP 400 Bad Request   (1467 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5ce38c07ff0-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=23514
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ECCvn8Iu5lr%2B5%2FR4toqFqg4JArUXW%2Bdcnr21ougIAHWcOz2Dh1ECgIBRJKOrJMK5J%2FH5spWuxue4KbHqqv5aLA7TQoWBS9ASAloCj5YUSYKxMk1mQgRWBzIkZPUtwEuLxcsciHUd%2FvDvxrO%2BAjRrkF4hm2lupSGKr3snsb%2B4kt6uWbUHDnRGbtwThOkJ"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-dd94-7556-b87b-12c897f3dd77
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=CNMRmy…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 84
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"23514","details":null,"hint":null,"message":"new row for relation \"tasks\" violates check constraint \"tasks_description_check\""}
+
+----- Troca 2 -----
+# descrição 10 MB
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"title":"T4.3 10MB","description":"<10 MB de 'x'>",...}
+
+<<< HTTP 400 Bad Request   (4330 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5d78aaadf22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=23514
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=a%2BIQkct37v1RUWmsF12gUAYhAl%2FSnnVS%2F8KKXSxE2gUL5cujD8E0W%2Fm3I%2FWocPlZ%2FW07yKsxFKJO%2B0S3AtPBvj8is7UsaPB8ej7oX7pR%2B3vZSRqwIZEaA5Udi91gNJyPjqfbDSxODN5RY%2BRHYngZEiKkysVjrnkHqO3mYEC0lFCeSIS37w%2ByaOba%2FAE1"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-e7bc-7605-8cc1-a3cfe8d67f2d
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=7QvtrD…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 902
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"23514","details":null,"hint":null,"message":"new row for relation \"tasks\" violates check constraint \"tasks_description_check\""}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+1 MB -> 400 (rejeitado); 10 MB -> 400 (rejeitado). Causa: CHECK constraint do schema da aplicação (tasks_description_check, código 23514) - o app limita o tamanho da descrição no próprio banco. Nenhuma linha criada (nada a remover). Resultado: não vulnerável (controle de tamanho presente).

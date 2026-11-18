@@ -1,0 +1,8 @@
+CASO T4.1 - Limite de requisições (GET /tasks até o 1º 429)
+App: A1
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Critério de parada: 1º 429 (aplicação em produção). Até 60 requisições: {"200":60}. Sem 429 em 60 (limite não observado nesta amostra).

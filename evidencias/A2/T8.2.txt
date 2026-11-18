@@ -1,0 +1,62 @@
+CASO T8.2 - CORS (Origin de atacante)
+App: A2
+========================================================================
+----- Troca 1 -----
+# GET com Origin atacante
+>>> GET http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+>>> Origin: https://atacante.example
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 1585
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"631-/FKkF13VKmYfRAd8JkJwOpYhxIw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"tasks":[{"id":3,"user_id":2,"title":"Tarefa A #3","description":"Descrição da tarefa 3 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-04","created_at":"2026-11-07T00:02:25.051Z","updated_at":"2026-11-07T00:02:25.051Z"},{"id":6,"user_id":2,"title":"Tarefa A #6","description":"Descrição da tarefa 6 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-07","created_at":"2026-11-07T00:02:25.063Z","updated_at":"2026-11-07T00:02:25.063Z"},{"id":9,"user_id":2,"title":"Tarefa A #9","description":"Descrição da tarefa 9 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-10","created_at":"2026-11-07T00:02:25.074Z","updated_at":"2026-11-07T00:02:25.074Z"},{"id":12,"user_id":2,"title":"Tarefa A #12","description":"Descrição da tarefa 12 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-13","created_at":"2026-11-07T00:02:25.084Z","updated_at":"2026-11-07T00:02:25.084Z"},{"id":15,"user_id":2,"title":"Tarefa A #15","description":"Descrição da tarefa 15 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-16","created_at":"2026-11-07T00:02:25.094Z","updated_at":"2026-11-07T00:02:25.094Z"},{"id":18,"user_id":2,"title":"Tarefa A #18","description":"Descrição da tarefa 18 do usuário A","status":"pendente","priority":"baixa","due_date":"2026-12-19","created_at":"2026-11-07T00:02:25.104Z","updated_at":"2026-11-07T00:02:25.104Z"}],"pagination":{"page":1,"limit":6,"total":20,"totalPages":4},"stats":{"total":20,"pendente":6,"em_andamento":7,"concluida":7}}
+
+----- Troca 2 -----
+# preflight OPTIONS
+>>> OPTIONS http://localhost:3000/api/tasks
+>>> Origin: https://atacante.example
+>>> Access-Control-Request-Method: GET
+
+<<< HTTP 204 No Content   (2 ms)
+<<< access-control-allow-methods: GET,HEAD,PUT,PATCH,POST,DELETE
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 0
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< vary: Access-Control-Request-Headers
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< 
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Access-Control-Allow-Origin=*, Allow-Credentials=undefined. Política cors() aberta com '*', sem credenciais.

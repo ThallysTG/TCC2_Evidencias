@@ -1,0 +1,35 @@
+CASO T2.2 - Política de senha (cadastro com senha "123")
+App: B2
+========================================================================
+# register password=123
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Senha Fraca","email":"senhafraca-1794060249381@teste.local","password":"****"}
+
+<<< HTTP 400 Bad Request   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 74
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"4a-C9ERsihgRjiZ15PsNNfzVwMiUgg"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 15
+<<< ratelimit-policy: 15;w=900
+<<< ratelimit-remaining: 9
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"A senha deve possuir no mínimo 8 e no máximo 128 caracteres."}

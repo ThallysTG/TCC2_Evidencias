@@ -1,0 +1,28 @@
+CASO T1.6 - Sem autenticação (GET /tasks e /tasks/{id} sem token)
+App: A3
+========================================================================
+----- Troca 1 -----
+# GET /tasks sem token
+>>> GET http://localhost:3000/api/tasks
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 29
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"1d-vMLEjLkINvpNRyQb2I2QXG/WxMg"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Não autenticado."}
+
+----- Troca 2 -----
+# GET /tasks/{id} sem token
+>>> GET http://localhost:3000/api/tasks/40
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 29
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"1d-vMLEjLkINvpNRyQb2I2QXG/WxMg"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Não autenticado."}

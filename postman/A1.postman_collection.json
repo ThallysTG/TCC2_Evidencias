@@ -1,0 +1,348 @@
+{
+  "info": {
+    "name": "TCC - A1 (Lovable, condição A) - API Security",
+    "description": "A1 = Supabase (PostgREST + RPC), autorização por RLS, JWT ES256 da plataforma. Mostra as 3 falhas (T5.2, T2.4, T8.1) e controles OK (BOLA, BFLA, JWT). Tokens ficam no environment \"A1\".",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "API3/API5 - T5.2 BOPLA (is_active)",
+      "item": [
+        {
+          "name": "T5.2 PATCH proprio is_active (escrita de campo protegido) -> 200",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              },
+              {
+                "key": "Prefer",
+                "value": "return=representation"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/profiles?id=eq.{{uidB}}",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "profiles"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "eq.{{uidB}}"
+                }
+              ]
+            },
+            "description": "PATCH no PRÓPRIO perfil escrevendo is_active. O projeto só previa GRANT UPDATE(name), mas o PostgREST ACEITA a escrita de is_active (200 com a linha). Aqui usamos is_active:true (idempotente) para NÃO desativar a conta em produção; a prova com is_active:false (que muda o estado) está em evidencias/A1/T5.2.txt. É BOPLA/mass assignment (OWASP API3:2023)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API2 - T2.4 token após logout",
+      "item": [
+        {
+          "name": "1) GET /tasks (baseline) -> 200",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id,title&limit=3",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "id,title"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "Baseline: token do userB funciona (200)."
+          },
+          "response": []
+        },
+        {
+          "name": "2) POST /auth/v1/logout -> 204",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/logout",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "auth",
+                "v1",
+                "logout"
+              ],
+              "query": []
+            },
+            "description": "Logout no GoTrue (revoga o refresh token)."
+          },
+          "response": []
+        },
+        {
+          "name": "3) GET /tasks com o MESMO token -> AINDA 200",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id,title&limit=3",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "id,title"
+                },
+                {
+                  "key": "limit",
+                  "value": "3"
+                }
+              ]
+            },
+            "description": "O MESMO access token continua aceito após o logout (PostgREST valida JWT stateless, não checa revogação). TTL ~60 min."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API1 - T1.1 BOLA (controle OK)",
+      "item": [
+        {
+          "name": "T1.1 GET tarefa do admin com token comum -> 200 []",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?id=eq.{{taskVictim}}&select=*",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "id",
+                  "value": "eq.{{taskVictim}}"
+                },
+                {
+                  "key": "select",
+                  "value": "*"
+                }
+              ]
+            },
+            "description": "Tenta ler a tarefa do admin com token de usuário comum. RLS \"Users view own tasks\" (auth.uid()=user_id) -> 200 com [] (nenhuma linha alheia)."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API5 - T5.1 BFLA (controle OK)",
+      "item": [
+        {
+          "name": "T5.1 POST /rpc/admin_list_users com token comum -> 403",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/rpc/admin_list_users",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "rpc",
+                "admin_list_users"
+              ],
+              "query": []
+            },
+            "description": "Função SECURITY DEFINER checa has_role(admin) e lança \"Acesso negado\" -> 403."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API2 - T2.5/T2.3 JWT (controle OK)",
+      "item": [
+        {
+          "name": "T2.5 GET /tasks com token FORJADO (segredo errado) -> 401",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "apikey",
+                "value": "{{apikey}}"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenForjado}}"
+              }
+            ],
+            "url": {
+              "raw": "https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1",
+              "protocol": "https",
+              "host": [
+                "c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod",
+                "lovable",
+                "cloud"
+              ],
+              "port": "443",
+              "path": [
+                "rest",
+                "v1",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "select",
+                  "value": "id"
+                },
+                {
+                  "key": "limit",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Token assinado com segredo errado. O JWT real é ES256 com segredo da plataforma Supabase -> 401 (não forjável)."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

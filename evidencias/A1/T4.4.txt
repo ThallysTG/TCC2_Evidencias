@@ -1,0 +1,74 @@
+CASO T4.4 - Fluxo custoso (recover repetido do mesmo e-mail, parar no 1º 429)
+App: A1
+========================================================================
+----- Troca 1 -----
+# 1º recover
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b@email.removido"}
+
+<<< HTTP 429 Too Many Requests   (793 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5f26a29df22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=1CgpsOdWL3skOB%2B6wZZ26TwKiyLRVyNJCtXBt6DIH8eYD9EmJOmPNyxjX1xTwawwIwtuxgLeL4YuSG59G7hSf4gz3N80I31n76DFH%2FCaCPldRU8cs36xGR%2BZaKFhLnALxGglSQo4pHIZPWFDzt9aL1oj%2FlyRMHIaOTHvdFrLujypunj3yaAOkTROrqxE"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-f392-736b-9023-2dfd4e355e22
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=SCsPAo…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 120
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: over_email_send_rate_limit
+<<<
+<<< {"code":429,"error_code":"over_email_send_rate_limit","msg":"For security purposes, you can only request this after 52 seconds."}
+
+----- Troca 2 -----
+# recover 1 (1º 429)
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/recover
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b@email.removido"}
+
+<<< HTTP 429 Too Many Requests   (793 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5f26a29df22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=1CgpsOdWL3skOB%2B6wZZ26TwKiyLRVyNJCtXBt6DIH8eYD9EmJOmPNyxjX1xTwawwIwtuxgLeL4YuSG59G7hSf4gz3N80I31n76DFH%2FCaCPldRU8cs36xGR%2BZaKFhLnALxGglSQo4pHIZPWFDzt9aL1oj%2FlyRMHIaOTHvdFrLujypunj3yaAOkTROrqxE"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-f392-736b-9023-2dfd4e355e22
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=SCsPAo…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 120
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: over_email_send_rate_limit
+<<<
+<<< {"code":429,"error_code":"over_email_send_rate_limit","msg":"For security purposes, you can only request this after 52 seconds."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status: {"429":1}. 429 (rate limit de e-mail) na requisição 1; execução interrompida no 1º 429, por ser aplicação em produção.

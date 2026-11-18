@@ -1,0 +1,33 @@
+CASO T1.3 - Exclusão de tarefa alheia (token A, DELETE /tasks/{id de B})
+App: B2
+========================================================================
+# tentativa
+>>> DELETE http://localhost:3000/api/tasks/616ee1ed-2c57-4b7e-b64e-972af3217765
+>>> Authorization: Bearer eyJhbGciOiJI…A-dEkl-c [267 chars]
+
+<<< HTTP 404 Not Found   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"23-kfHwci2bzba50QK9+WrCTw1fI20"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 164
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Tarefa não encontrada."}

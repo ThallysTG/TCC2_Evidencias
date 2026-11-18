@@ -1,0 +1,68 @@
+CASO T4.3 - Tamanho do corpo (descrição de 1 MB e 10 MB)
+App: A2
+========================================================================
+----- Troca 1 -----
+# corpo ~1 MB
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"grande","description":"<1 MB de 'A'>","status":"pendente","priority":"baixa"}
+
+<<< HTTP 500 Internal Server Error   (48 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 37
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"25-/yTgjZlh1S4i9Q39PpBkMT2mMUU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Erro interno do servidor."}
+
+----- Troca 2 -----
+# corpo ~10 MB
+>>> POST http://localhost:3000/api/tasks
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"grande","description":"<10 MB de 'A'>","status":"pendente","priority":"baixa"}
+
+<<< HTTP 500 Internal Server Error   (60 ms)   [corpo ~10 MB]
+<<< ... (demais cabeçalhos idênticos aos da Troca 1) ...
+<<< {"error":"Erro interno do servidor."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Resultado: NÃO VULNERÁVEL. Os corpos de 1 MB e 10 MB foram rejeitados pelo limite padrão de 100kb do express.json(). O PayloadTooLargeError é capturado pelo handler global de erros e respondido como HTTP 500 genérico (o ideal seria 413). A tarefa não é criada; não há aceitação de corpo sem limite. Nota: o status 500 (em vez de 413) é uma imperfeição de tratamento de erro, não um consumo irrestrito de recursos.
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 37
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"25-/yTgjZlh1S4i9Q39PpBkMT2mMUU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Erro interno do servidor."}

@@ -1,0 +1,46 @@
+CASO T1.5 - Troca de dono (POST tarefa com user_id=userA)
+App: B1
+========================================================================
+# insert user_id=userA
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"title":"Dono forjado","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","status":"pendente","priority":"media"}
+
+<<< HTTP 201 Created   (261 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1464b94d4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Te10E%2FTdiXDQbUxb6s%2BP2GtZp33XzywzwYHBWatl6h%2FijVkxjOCBF6GCzOKbMaJAJ4gUR74Ow9s2Tgqm%2Fz9wSvJG%2Bnhus0pJsbu8d40GOnHpLkpUkPYsmwOZclfUNJEavxToDLP5AM%2FgB19Pk89tjqKh4GdZk%2Fr5EsUYPxqoxpsRGXOrzutlAEbJ9SPy"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b711-fafb-714b-9990-1ceef253b47a
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=vKiODE…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 7
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< [{"id":"5a3abf8b-0cea-4d68-827a-9c242c3387e4","user_id":"14d3b45d-3fe1-4823-8504-846f9f1f2c58","title":"Dono forjado","description":"","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:51.425712+00:00","updated_at":"2026-11-07T17:32:51.425712+00:00"}]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+B1: RLS WITH CHECK (user_id=auth.uid()) + trigger tasks_enforce_owner força user_id=auth.uid().

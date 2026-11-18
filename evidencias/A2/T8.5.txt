@@ -1,0 +1,13 @@
+CASO T8.5 - Segredos e padrões (inspeção de docker-compose.yml e código)
+App: A2
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml:
+  JWT_SECRET default = taskflow-super-secret-jwt-key-2026 (fixo no compose e em backend/src/middleware/auth.js)
+  ADMIN_PASSWORD default = admin123 ; ADMIN_EMAIL = admin@taskflow.com
+  DB_PASSWORD default = taskflow123 ; DB_USER = taskflow
+Não há .env no repositório do A2 (usa os defaults do compose). Nenhum service_role no frontend (não usa Supabase).
+Confirmação prática em T2.5: token forjado com o JWT_SECRET default foi aceito pela API.

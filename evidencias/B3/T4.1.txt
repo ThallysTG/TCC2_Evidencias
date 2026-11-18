@@ -1,0 +1,64 @@
+CASO T4.1 - Limite de requisições (350 GET /tasks em janela curta)
+App: B3
+========================================================================
+----- Troca 1 -----
+# exemplo 200 (1 de 350)
+>>> GET http://localhost:8080/api/tasks?pageSize=1
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 200 OK   (132 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=299, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"items":[{"id":"f30ceac2-b763-4ecd-80cb-b6cceb36b1e1","title":"Tarefa A #15","description":"Descrição 15","status":"pendente","priority":"baixa","dueDate":"2026-12-16","createdAt":"2026-11-07T14:39:07.697Z","updatedAt":"2026-11-07T14:39:07.697Z"}],"page":1,"pageSize":1,"total":15,"totalPages":15}
+
+----- Troca 2 -----
+# exemplo 429 (bloqueado)
+>>> GET http://localhost:8080/api/tasks?pageSize=1
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 429 Too Many Requests   (539 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 61
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=0, reset=900
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< retry-after: 900
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Muitas requisições. Tente novamente mais tarde."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+350 requisições em 0.6s. Status: {"200":298,"429":52}. 429: 52 (primeiro na ~req 298). /tasks é coberto pelo userLimiter (300/usuário/15min) e pelo globalIpLimiter (300/IP/15min). Com 120 req o teto de 300 não era atingido; com 350 dispara 429.

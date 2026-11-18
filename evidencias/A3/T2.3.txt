@@ -1,0 +1,44 @@
+CASO T2.3 - Validação do token (assinatura alterada, alg none, expirado)
+App: A3
+========================================================================
+----- Troca 1 -----
+# assinatura inválida
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…9G6B0_Dw [148 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 65
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"41-C3G6Jo6KGHPrvv1AkKm+3/ebG9g"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Sessão inválida ou expirada. Faça login novamente."}
+
+----- Troca 2 -----
+# alg=none
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJu…MjEyNX0. [104 chars]
+
+<<< HTTP 401 Unauthorized   (0 ms)
+<<< connection: keep-alive
+<<< content-length: 65
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"41-C3G6Jo6KGHPrvv1AkKm+3/ebG9g"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Sessão inválida ou expirada. Faça login novamente."}
+
+----- Troca 3 -----
+# expirado
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…8lhRo2G8 [132 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 65
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"41-C3G6Jo6KGHPrvv1AkKm+3/ebG9g"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Sessão inválida ou expirada. Faça login novamente."}

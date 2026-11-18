@@ -1,0 +1,36 @@
+CASO T1.5 - Troca de dono (POST com user_id=B no corpo)
+App: B3
+========================================================================
+# criar com user_id/userId=B
+>>> POST http://localhost:8080/api/tasks
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"title":"Dono forjado","user_id":"30751b2f-555f-4eee-88fe-8fdd5b59f49a","userId":"30751b2f-555f-4eee-88fe-8fdd5b59f49a","status":"pendente","priority":"media"}
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 77
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=77, reset=899
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Dados inválidos.","details":[{"message":"Campo não permitido."}]}

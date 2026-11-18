@@ -1,0 +1,10 @@
+CASO T8.5 - Segredos e padrões (inspeção .env e bundle)
+App: A1
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+.env do A1: só SUPABASE_URL + chave PUBLISHABLE (anon) - ambas públicas por design do Supabase. NÃO há service_role/sb_secret no repositório.
+client.server.ts usa SUPABASE_SERVICE_ROLE_KEY de process.env (lado servidor), gerenciada pela Lovable/Supabase - não vai pro bundle do browser.
+Segredo de assinatura do JWT é da plataforma Supabase (não no repo). Confirmado no T2.5 (forja rejeitada).

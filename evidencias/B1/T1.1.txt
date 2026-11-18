@@ -1,0 +1,72 @@
+CASO T1.1 - Leitura de tarefa alheia (userB lê tarefa de userA)
+App: B1
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?id=eq.55cbca7c-ccae-4955-9d3a-a5061800ccc2&select=*
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 200 OK   (293 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e14586ada4f6e-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?id=eq.55cbca7c-ccae-4955-9d3a-a5061800ccc2&select=%2A
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=5XwIXpwV8ei5u8lY7R5eQC7wxsPAPrKdc0daIbljJ2coUkaJqfOYOfOrI7UZzFMCPeQI%2FzKwkeog9bM9Kyp%2FeQCmvCYwkKLBiznx8G7iGltPyo2zVlu4PpaovP%2BM764msnAr9Df3qGrGo9s287NxNUBLWW8DDnWrU8VIKL2ElQD7TFvuOlBilZFCYk6J"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b711-f370-7841-8ede-05d97b8e5659
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=ihNaSx…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 7
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 2 -----
+# 2ª
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?id=eq.55cbca7c-ccae-4955-9d3a-a5061800ccc2&select=*
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 200 OK   (650 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e145a4d1b70c6-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?id=eq.55cbca7c-ccae-4955-9d3a-a5061800ccc2&select=%2A
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ojORmVHq3sExNK6pJy3QZ6vOJ3xr27SyOtwWTtO9k63uOev%2FYGQRu1H3o9JHuSn0sOAcTntUGLAoQI%2FVP%2Fadgj2PIVLNFCAibLWAKK2OTRGrkmfT0X88EKZhLaxxAJNEOgYR1fVDOKc0kA2UsZJNHgK8Lc0EUB1exhC4SVkkDWrMMtoe4ida1gnea92r"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b711-f47f-7bcb-a9a0-1c16a879a0f9
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=RhaKEi…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 6
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []

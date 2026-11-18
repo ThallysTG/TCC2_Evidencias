@@ -1,0 +1,125 @@
+CASO T8.4 - Exposição de tecnologia (Server, X-Powered-By)
+App: B1
+========================================================================
+----- Troca 1 -----
+# site
+>>> GET https://tasko-team-organizer.lovable.app/
+
+<<< HTTP 200 OK   (254 ms)
+<<< cache-control: no-cache, must-revalidate, max-age=0
+<<< cf-ray: a56e167cef57626e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.gpteng.co; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob:; connect-src 'self' https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud wss://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+<<< content-type: text/html; charset=utf-8
+<<< cross-origin-resource-policy: same-origin
+<<< permissions-policy: camera=(), microphone=(), geolocation=(), payment=()
+<<< referrer-policy: strict-origin-when-cross-origin
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=3ZFaWW…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-deployment-id: psr2.99adc1be-d1dc-4a04-9d09-16e528f663e0.1794677657.ny-pgb4Qm2--EwvOsTq9I7i15MKhrcmUpo4Pkm9zH20
+<<< x-frame-options: DENY
+<<<
+<<< <!DOCTYPE html><html lang="pt-BR"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&amp;family=Figtree:wght@400;500;600;700&amp;display=swap" data-precedence="default"/><link rel="stylesheet" href="/assets/styles-doAQzpqk.css" data-precedence="default"/><title>TaskFlow — Gestão de tarefas para equipes pequenas</title><meta name="description" content="Crie, organize e acompanhe as tarefas da sua equipe com status, prioridade e prazos."/><meta property="og:title" content="TaskFlow — Gestão de tarefas para equipes pequenas"/><meta property="og:description" content="Crie, organize e acompanhe as tarefas da sua equipe com status, prioridade e prazos."/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><link rel="modulepreload" href="/assets/index-C1nBWH5y.js"/><link rel="modulepreload" href="/assets/useRouter-Dpb7RwMI.js"/><link rel="modulepreload" href="/assets/react-dom-C6UbONwD.js"/><link rel="modulepreload" href="/assets/createServerFn-5zcXtKFv.js"/><link rel="modulepreload" href="/assets/not-found-DIgawKw1.js"/><link rel="modulepreload" href="/assets/link-DmIVlRKu.js"/><link rel="modulepreload" href="/assets/matchContext-DN9gHYo-.js"/><link rel="modulepreload" href="/assets/preload-helper-COmdz5kN.js"/><link rel="modulepreload" href="/assets/useSelector-wdOmz881.js"/><link rel="modulepreload" href="/assets/useNavigate-DT7ghfdY.js"/><link rel="modulepreload" href="/assets/auth-guards-DiINUNEX.js"/><link rel="modulepreload" href="/assets/client-CcnG9V9B.js"/><link rel="modulepreload" href="/assets/QueryClientProvider-DWd7tQmY.js"/><link rel="modulepreload" href="/assets/createLucideIcon-DyOSRp63.js"/><link rel="modulepreload" href="/assets/validation-DF54JeeE.js"/><link rel="modulepreload" href="/assets/routes-DNbdj8-2.js"/><link rel="modulepreload" href="/assets/task-badges-2y7-Qj6f.js"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+<<< <style>
+<<< 	#lovable-badge {
+<<< 		--badge-bg: #1b1b1b;
+<<< 		--badge-text: #c5c1b9;
+<<< 		--badge-text-hover: #dcdad5;
+<<< 		--badge-radius: 6px;
+<<< 		--badge-padding: 8px;
+<<< 		--badge-gap: 6px;
+<<< 		--badge-shadow: 
+<<< 			0 0 0 1px rgba(0, 0, 0, 0.88),
+<<< 			0 1px 0 0 rgba(0, 0, 0, 0.04),
+<<< 			0 2px 2px -1px rgba(0, 0, 0, 0.08),
+<<< 			0 4px 4px -2px rgba(0, 0, 0, 0.08),
+<<< 			0 8px 8px -4px rgba(0, 0, 0, 0.08),
+<<< 			0 16px 16px -8px rgba(0, 0, 0, 0.08);
+<<< 		--badge-transition-duration: 0.2s;
+<<< 		--badge-transition-easing: cubic-bezier(0.16, 1, 0.32, 1);
+<<< 		--focus-color: #575ECF;
+<<< 		--focus-offset: 2px;
+<<< 		--focus-width: 2px;
+<<< 		
+<<< 		position: fixed;
+<<< 		bottom: 12px;
+<<< 		right: 12px;
+<<< 		height: 24px;
+<<< 		display: flex;
+<<< 		align-items: center;
+<<< 		z-index: 1000000;
+<<< 		background-color: var(--badge-bg) !important;
+<<< 		color: var(--badge-text) !important;
+<<< 		border-radius: var(--badge-radius);
+<<< 		box-shadow: var(--badge-shadow) !important;
+<<< 		font-size: 12px;
+<<< 		font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+<<< 		font-weight: 400 !important;
+<<< 		text-transform: none !important;
+<<< 		font-feature-settings: normal !important;
+<<< 		transform: translateZ(0);
+<<< 		will-change: transform, opacity;
+<<< 		transition: opacity var(--badge-transition-duration) var(--badge-transition-easing);
+<<< 	}
+<<< 
+<<< 	#lovable-badge.closing {
+<<< 		opacity: 0;
+<<< 		pointer-events: none;
+<<< 	}
+<<< 
+<<< 	#lovable-badge-cta {
+<<< 		display: flex;
+<<< 		align-items: baseline;
+<<< 		gap: var(--badge-gap);
+<<< 		box-sizing: border-box;
+<<< 		padding: 4px var(--badge-padding) 0;
+<<< 		height: 100%;
+<<< 		color: inherit;
+<<< 		text-decoration: none;
+<<< 		white-space: nowrap;
+<<< 		border-radius: var(--badge-radius) 0 0 var(--badge-radius);
+<<< 		transition: 
+<<< 			background-color var(--badge-transition-duration) ease,
+<<< 			color var(--badge-transition-duration) ease,
+<<< 			transfor
+<<< …[+19437 chars truncados]
+
+----- Troca 2 -----
+# REST base
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/
+>>> apikey: sb_publishable_[chave removida]
+
+<<< HTTP 200 OK   (416 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e167e69904f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-profile: public
+<<< content-type: application/openapi+json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Snh98zbcDBywzfiGpxLLeAuLK5G1jWWyDeIPNzZJ9gpTKf9KOYUkgHzYy7qp%2FOGkjo%2B3o8Y7YmEiYoWexRPcn%2FR1F8yw5LyIAxyh3fEm2sA2uM5e%2FrzTfs5Z%2Fa8u2SPhM65MVwN1L2DYwFZC2g7cUiJ0lNvXreBj%2BTHTzyaqUMbw6KrtlWeqEZX4Ou4K"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b713-4b11-7ee4-a851-c4282173417a
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=pg48lz…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 125
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"swagger":"2.0","info":{"description":"","title":"standard public schema","version":"14.18"},"host":"xincblojycsgxtyvszkz.supabase.co:443","basePath":"/","schemes":["https"],"consumes":["application/json","application/vnd.pgrst.object+json;nulls=stripped","application/vnd.pgrst.object+json","text/csv"],"produces":["application/json","application/vnd.pgrst.object+json;nulls=stripped","application/vnd.pgrst.object+json","text/csv"],"paths":{"/":{"get":{"produces":["application/openapi+json","application/json"],"responses":{"200":{"description":"OK"}},"summary":"OpenAPI description (this document)","tags":["Introspection"]}},"/rate_limits":{"get":{"parameters":[{"$ref":"#/parameters/rowFilter.rate_limits.key"},{"$ref":"#/parameters/rowFilter.rate_limits.window_start"},{"$ref":"#/parameters/rowFilter.rate_limits.count"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/order"},{"$ref":"#/parameters/range"},{"$ref":"#/parameters/rangeUnit"},{"$ref":"#/parameters/offset"},{"$ref":"#/parameters/limit"},{"$ref":"#/parameters/preferCount"}],"responses":{"200":{"description":"OK","schema":{"items":{"$ref":"#/definitions/rate_limits"},"type":"array"}},"206":{"description":"Partial Content"}},"tags":["rate_limits"]},"post":{"parameters":[{"$ref":"#/parameters/body.rate_limits"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/preferPost"}],"responses":{"201":{"description":"Created"}},"tags":["rate_limits"]},"delete":{"parameters":[{"$ref":"#/parameters/rowFilter.rate_limits.key"},{"$ref":"#/parameters/rowFilter.rate_limits.window_start"},{"$ref":"#/parameters/rowFilter.rate_limits.count"},{"$ref":"#/parameters/preferReturn"}],"responses":{"204":{"description":"No Content"}},"tags":["rate_limits"]},"patch":{"parameters":[{"$ref":"#/parameters/rowFilter.rate_limits.key"},{"$ref":"#/parameters/rowFilter.rate_limits.window_start"},{"$ref":"#/parameters/rowFilter.rate_limits.count"},{"$ref":"#/parameters/body.rate_limits"},{"$ref":"#/parameters/preferReturn"}],"responses":{"204":{"description":"No Content"}},"tags":["rate_limits"]}},"/tasks":{"get":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/rowFilter.tasks.due_date"},{"$ref":"#/parameters/rowFilter.tasks.created_at"},{"$ref":"#/parameters/rowFilter.tasks.updated_at"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/order"},{"$ref":"#/parameters/range"},{"$ref":"#/parameters/rangeUnit"},{"$ref":"#/parameters/offset"},{"$ref":"#/parameters/limit"},{"$ref":"#/parameters/preferCount"}],"responses":{"200":{"description":"OK","schema":{"items":{"$ref":"#/definitions/tasks"},"type":"array"}},"206":{"description":"Partial Content"}},"tags":["tasks"]},"post":{"parameters":[{"$ref":"#/parameters/body.tasks"},{"$ref":"#/parameters/select"},{"$ref":"#/parameters/preferPost"}],"responses":{"201":{"description":"Created"}},"tags":["tasks"]},"delete":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/rowFilter.tasks.due_date"},{"$ref":"#/parameters/rowFilter.tasks.created_at"},{"$ref":"#/parameters/rowFilter.tasks.updated_at"},{"$ref":"#/parameters/preferReturn"}],"responses":{"204":{"description":"No Content"}},"tags":["tasks"]},"patch":{"parameters":[{"$ref":"#/parameters/rowFilter.tasks.id"},{"$ref":"#/parameters/rowFilter.tasks.user_id"},{"$ref":"#/parameters/rowFilter.tasks.title"},{"$ref":"#/parameters/rowFilter.tasks.description"},{"$ref":"#/parameters/rowFilter.tasks.status"},{"$ref":"#/parameters/rowFilter.tasks.priority"},{"$ref":"#/parameters/ro
+<<< …[+14179 chars truncados]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+X-Powered-By=(ausente); Server(site)=cloudflare; Server(REST)=cloudflare.

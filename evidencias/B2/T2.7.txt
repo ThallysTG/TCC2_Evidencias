@@ -1,0 +1,210 @@
+CASO T2.7 - Enumeração de usuários (register/login/forgot: existente x inexistente)
+App: B2
+========================================================================
+----- Troca 1 -----
+# register e-mail EXISTENTE
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"xx","email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 400 Bad Request   (144 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 116
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"74-yH+Os3PUOxrn3X/LrP8Nw8WnJF8"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 15
+<<< ratelimit-policy: 15;w=900
+<<< ratelimit-remaining: 12
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não foi possível concluir o cadastro com os dados informados. Verifique os dados ou tente fazer login."}
+
+----- Troca 2 -----
+# register e-mail NOVO
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"xx","email":"novo-1794060248680@teste.local","password":"****"}
+
+<<< HTTP 201 Created   (148 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 483
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"1e3-+3HprHDL1BPpJiqZ1k/vPs3+Zqg"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 15
+<<< ratelimit-policy: 15;w=900
+<<< ratelimit-remaining: 11
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Cadastro realizado com sucesso.","token":"eyJhbGciOiJI…iXuC3UHM [267 chars]","user":{"id":"8de0624c-b3fb-4d2e-b0fa-adc4edf51824","name":"xx","email":"novo-1794060248680@teste.local","role":"user","created_at":"2026-11-07T14:04:08.824Z"}}
+
+----- Troca 3 -----
+# login existente (senha errada)
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (146 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"23-Lsrp38LvLCdmqOaVeQr4VJ8T4Ng"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 10
+<<< ratelimit-policy: 10;w=900
+<<< ratelimit-remaining: 9
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Credenciais inválidas."}
+
+----- Troca 4 -----
+# login inexistente
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794060248974@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (144 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"23-Lsrp38LvLCdmqOaVeQr4VJ8T4Ng"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 10
+<<< ratelimit-policy: 10;w=900
+<<< ratelimit-remaining: 9
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Credenciais inválidas."}
+
+----- Troca 5 -----
+# forgot existente
+>>> POST http://localhost:3000/api/auth/forgot-password
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local"}
+
+<<< HTTP 200 OK   (7 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 105
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"69-P/IbhtxEpxC9cP+9jCdBE0blnnU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 5
+<<< ratelimit-policy: 5;w=900
+<<< ratelimit-remaining: 4
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Se o e-mail informado estiver cadastrado, você receberá um link para redefinir sua senha."}
+
+----- Troca 6 -----
+# forgot inexistente
+>>> POST http://localhost:3000/api/auth/forgot-password
+>>> Content-Type: application/json
+>>>
+>>> {"email":"naoexiste-1794060249126@teste.local"}
+
+<<< HTTP 200 OK   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 105
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"69-P/IbhtxEpxC9cP+9jCdBE0blnnU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 5
+<<< ratelimit-policy: 5;w=900
+<<< ratelimit-remaining: 4
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Se o e-mail informado estiver cadastrado, você receberá um link para redefinir sua senha."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status - register: existente=400 vs novo=201; login: 401 vs 401; forgot: 200 vs 200. Mensagem do register é genérica nos dois casos de erro, mas o código HTTP difere (400 vs 201).

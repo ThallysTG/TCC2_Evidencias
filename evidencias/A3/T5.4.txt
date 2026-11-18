@@ -1,0 +1,36 @@
+CASO T5.4 - Troca de método em rota restrita (token comum)
+App: A3
+========================================================================
+----- Troca 1 -----
+# PUT admin status
+>>> PUT http://localhost:3000/api/admin/users/3/status
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}
+
+----- Troca 2 -----
+# POST admin status
+>>> POST http://localhost:3000/api/admin/users/3/status
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"active":false}
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 46
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"2e-hfgz/ynPp2KHNtCbvu/52brR4kk"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Acesso restrito a administradores."}

@@ -1,0 +1,72 @@
+CASO T4.5 - Cadastro em massa (signups seguidos, parar no 1º 429)
+App: B1
+========================================================================
+----- Troca 1 -----
+# 1º
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-mass-1794072828519-1@example.com","password":"****"}
+
+<<< HTTP 400 Bad Request   (772 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e15cb6b414f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=S4dwpkKb0tKqODFMVKirpRTmSViCijstzUXxgnB0n0qC6571ijhGouktWrSXN7QOGu4X9Zuglv6UlILSsc9ddnmb2dqeD6Aeks0vguEaYs6E8haYgxJ9cApX7%2BuYtEhA7XzSkLP1bTTSjc2V6ykbiYvgaHOox1z0JKRw5YQXSQEYsrNW%2Bo0Cj8a87My7"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-db60-7652-b46c-794a7a9f4e69
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=bK1v0J…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 484
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":400,"error_code":"unknown","msg":"This email address is not allowed. Placeholder, reserved, or mistyped domains such as example.com or gmai.com cannot receive email."}
+
+----- Troca 2 -----
+# 30
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-mass-1794072828519-30@example.com","password":"****"}
+
+<<< HTTP 400 Bad Request   (1142 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e165fdb134f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=7JP6HhSCqZVdBgrxD50aMeHEIXbpbdM6009ftIABV6Ib8WF4k08JbcQnVmdJkPoMnF4hP5W9QJGfJVweP%2BXKHYgVe9g2PLOOeLBFw8mupRcpxBKN6IH7TsoUjv7j3U%2FbJYVNj0jYHYwUfFvWKv0zOYcqU2DtpLEOFxVmv%2BnUe1hRlzXtvY93RhWuz4Vg"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b713-3818-7ec9-9b66-86fe979009de
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=6pCEij…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 841
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":400,"error_code":"unknown","msg":"This email address is not allowed. Placeholder, reserved, or mistyped domains such as example.com or gmai.com cannot receive email."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status: {"400":30}. Criadas: 0. E-mails @example.com.

@@ -1,0 +1,71 @@
+CASO T4.1 - Limite de requisições (260 GET /tasks em janela curta)
+App: B2
+========================================================================
+----- Troca 1 -----
+# exemplo 200 (1 de 260)
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…IDizTYuQ [267 chars]
+
+<<< HTTP 200 OK   (230 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 318
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"13e-oCytOVJ8LZDAgA6M+zZx8eZB4Lk"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 199
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"tasks":[{"id":"616ee1ed-2c57-4b7e-b64e-972af3217765","title":"Tarefa B #3","description":"Descrição 3 de B","status":"pendente","priority":"baixa","due_date":"2026-12-04","created_at":"2026-11-07T14:04:08.471Z","updated_at":"2026-11-07T14:04:08.471Z"}],"pagination":{"page":1,"limit":1,"total":20,"totalPages":20}}
+
+----- Troca 2 -----
+# exemplo 429 (bloqueado)
+>>> GET http://localhost:3000/api/tasks?limit=1
+>>> Authorization: Bearer eyJhbGciOiJI…IDizTYuQ [267 chars]
+
+<<< HTTP 429 Too Many Requests   (534 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 84
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"54-lnomvoZem87thrNvDmnPGtvt0fQ"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 0
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< retry-after: 900
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Limite de requisições por usuário excedido. Aguarde alguns instantes."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+260 requisições em 0.6s. Status: {"200":200,"429":60}. 429: 60 (primeiro na ~req 201). /tasks é coberto pelo userRateLimiter (200/usuário/15min) e pelo ipRateLimiter global (300/IP/15min). Com 120 req o teto não era atingido; com 260 o limite de 200/usuário dispara 429.

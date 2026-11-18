@@ -1,0 +1,72 @@
+CASO T2.1 - Força bruta no login (senhas erradas na conta A, parar no 1º 429)
+App: B1
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/token?grant_type=password
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b1a@email.removido","password":"****"}
+
+<<< HTTP 400 Bad Request   (543 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e148d5fcd4f6e-GRU
+<<< connection: keep-alive
+<<< content-length: 81
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=C5EzX8Gd7QnEB%2F2PyCIiYknL7lOHvrZLlvYmCei9Ai13KPiJilnYx1IaoQvOwzHse6g4HbOi0fHx3iPsUtznH4iUs2DZZ%2F5rZY2D60QukDJYEZziA%2Fo8tNqRiv%2Fjtth2rytyPARJ3Wr5WTv9vwroL7mGfif8vDuZHIut8iMSPGsRvgzU051nCqFViqAM"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-14b2-7436-a492-b2f0739bd243
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=4lAvgk…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 81
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: invalid_credentials
+<<<
+<<< {"code":400,"error_code":"invalid_credentials","msg":"Invalid login credentials"}
+
+----- Troca 2 -----
+# 40 (429)
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/token?grant_type=password
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"pesquisador+b1a@email.removido","password":"****"}
+
+<<< HTTP 429 Too Many Requests   (283 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1516690cc65f-GRU
+<<< connection: keep-alive
+<<< content-length: 86
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=6WdSNw0XauG%2BUzjZyHOqd5TqYkppkyw3XuKElLblOcXF43Xpn1qFx6RB40rVOgJGq8fHYwJfaJfObCU5z88Eo%2FCvN9wZ7miUVAJ77LFwMcdpvPh5D3oQwBP8c9k7P%2Fb7hN2Q4uWC5XQ6gNHxp5E%2FttHXVZ3igSQ3mGrxX6SaURGIrRc9xd9MICUzvG8b"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-6a3c-7f56-8d2c-5aa291e8ff65
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=O0Pzpr…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: over_request_rate_limit
+<<<
+<<< {"code":429,"error_code":"over_request_rate_limit","msg":"Request rate limit reached"}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Status: {"400":39,"429":1}.

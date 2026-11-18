@@ -1,0 +1,88 @@
+CASO T5.3 - Autopromoção (role=admin no cadastro e no perfil)
+App: A2
+========================================================================
+----- Troca 1 -----
+# cadastro com role=admin
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Promovido","email":"autopromo@teste.local","password":"****","role":"admin","is_active":true}
+
+<<< HTTP 201 Created   (50 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 393
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"189-Uj0kD3bOlurElmZaEWOHoADGDz0"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Cadastro realizado com sucesso!","token":"eyJhbGciOiJI…iABCi_KY [199 chars]","user":{"id":4,"name":"Promovido","email":"autopromo@teste.local","role":"user","is_active":true,"created_at":"2026-11-07T00:02:25.321Z"}}
+
+----- Troca 2 -----
+# perfil com role=admin
+>>> PUT http://localhost:3000/api/profile
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Usuario A","email":"usuario.a@teste.local","role":"admin"}
+
+<<< HTTP 200 OK   (4 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 432
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"1b0-lpVLcXbWchNbVnSeRUtIYBJXlAQ"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Perfil atualizado com sucesso!","user":{"id":2,"name":"Usuario A","email":"usuario.a@teste.local","role":"user","is_active":true,"created_at":"2026-11-07T00:02:24.972Z","updated_at":"2026-11-07T00:02:25.326Z"},"token":"eyJhbGciOiJI…4VGpaxcE [199 chars]"}
+
+----- Troca 3 -----
+# verificar role de A
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+
+<<< HTTP 200 OK   (2 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 139
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"8b-RI1p3fdGLCxf2pPvc6keQHzDpvg"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"user":{"id":2,"name":"Usuario A","email":"usuario.a@teste.local","role":"user","is_active":true,"created_at":"2026-11-07T00:02:24.972Z"}}

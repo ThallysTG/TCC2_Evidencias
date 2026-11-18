@@ -1,0 +1,72 @@
+CASO T8.3 - Mensagens de erro (coluna inexistente, filtro inválido)
+App: B1
+========================================================================
+----- Troca 1 -----
+# coluna inexistente
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=coluna_inexistente
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 400 Bad Request   (976 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e16748e3500fa-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42703
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=f4H4U1EUR%2BGeaw%2FNhaGQummiK7RLsF1be3xK30qzg%2FxQJvgDx2sf7smd76AoPO%2FJQ%2BbxMFq2lWSRVivxEzPWp27ECDmLA%2FT8Z51b5ljpmiyHyk0Dgf0hTY%2FZQeclx%2BxZ%2BxHsKmsAH3hY5oKwyD1fBOTjX2mPXli3yoJTQLAljm6y1E2nZof3dMkIaQzb"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b713-45a7-78d5-af63-4400af6204b6
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=H8Wqng…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 20
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42703","details":null,"hint":null,"message":"column tasks.coluna_inexistente does not exist"}
+
+----- Troca 2 -----
+# uuid inválido
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?id=eq.nao-e-uuid&select=*
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 400 Bad Request   (418 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e167a38c54f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=22P02
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=swfsc%2B6wmlDVrhVnnRy9PTz1aQ9RjVw3v%2B6RCMUeVirBcZjhTx2Hq71YDswiQ7JIowqsYs2bTXGmu9X8gBSwAQquskDe6X02xICqAfxBNv9DZJOWrUXe2zQksfxDzgwy7ZFVdtWbt12EknYyZaQkKuEt7ou%2FCbZyXKU3PBqLFLfHVFmRv5TLrqRzkp0i"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b713-4877-718f-9746-77643586db56
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=vnj6S4…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 4
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"22P02","details":null,"hint":null,"message":"invalid input syntax for type uuid: \"nao-e-uuid\""}

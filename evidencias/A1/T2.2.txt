@@ -1,0 +1,39 @@
+CASO T2.2 - Política de senha (cadastro com senha "123")
+App: A1
+========================================================================
+# signup password=123
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/signup
+>>> apikey: sb_publishable_[chave removida]
+>>> Content-Type: application/json
+>>>
+>>> {"email":"tcc-pw-1794069549724@example.com","password":"****"}
+
+<<< HTTP 422 Unprocessable Entity   (393 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5bf4d0ddf22-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=IUZVErDhHnrwX9q4nYQD0kokbZDXsJA7%2BUSe0N7CasPME%2BOue%2BUbIqrGmtio3UXDyza0Ctj2vzEunffw6pfyRiPfk2xxo7CsDtK0zPZZCazrNBygxe7EFZzmXqkM5qLCspJLO7ttOODPoJnsDiPMT5XrrDTFNDg2Cm40g06mYY0ktADSz4GbRG7MIesq"}]}
+<<< sb-gateway-version: 1
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-d3bb-7f4c-9388-7e26f55af9a0
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=HA4OIp…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 62
+<<< x-lovable-cloud-proxy: 1
+<<< x-sb-error-code: weak_password
+<<<
+<<< {"code":422,"error_code":"weak_password","msg":"Password should be at least 6 characters. Password is known to be weak and easy to guess, please choose a different one.","weak_password":{"reasons":["length","pwned"]}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+GoTrue valida o comprimento mínimo no servidor. Rejeitado antes de criar conta (status 422).

@@ -1,0 +1,22 @@
+CASO T8.6 - Configuração de rede (portas do banco 5432 e backend 3000 no host)
+App: B3
+========================================================================
+----- Troca 1 -----
+# banco 5432
+>>> TCP 127.0.0.1:5432
+
+<<< HTTP FECHADA    (0 ms)
+<<<
+<<< Conexão recusada.
+
+----- Troca 2 -----
+# backend 3000
+>>> TCP 127.0.0.1:3000
+
+<<< HTTP FECHADA    (0 ms)
+<<<
+<<< Conexão recusada.
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml do B3 NÃO publica portas do db nem do backend (rede interna; db em network internal:true). Só o frontend :8080 é exposto.

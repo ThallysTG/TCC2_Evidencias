@@ -1,0 +1,107 @@
+CASO T2.4 - Vida útil e logout (reusar access token após logout)
+App: B1
+========================================================================
+----- Troca 1 -----
+# antes
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 200 OK   (242 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e151aadb24f6e-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?limit=1&select=id
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=J%2BWSrio1lksuHxc4qvFkMw8e1%2BfG0nHHew0eJjGYwrKPKOu%2Bb3q%2B31AGEbvNbbBBYJrziMsrMNjjeqadZqI%2BT49ye3wQaVh2yBmBMLVA%2F4rROhkbWzx9pxOtoDjT4ZZUk%2BHpJLL%2BXq6RiRQH74gwHBvOe9WUI%2FJMZBef6YkZyIyYblVi6ImAGgWwmlle"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-6cb1-78cf-b543-b74c02a6ed05
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=g6EJ7F…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 7
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 2 -----
+# logout
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/auth/v1/logout
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 204 No Content   (670 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e151c3cdfc65f-GRU
+<<< connection: keep-alive
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=0Ig%2B06IL4fI%2BYJsGozW5yBYCMsAtPvZhRGSB%2FWTIkZT54FPK%2B%2F%2BgpW%2BhC7acYNRQw1Q9l1PuSiEi54%2FGqYOdzDhmOjoBSklkpLJCMwRFE3Jb%2BE49sODzibmAyGudGNbSl96ok96eG4SaTHWuRrDqPr7ebaMYZ7rXBxkBs0amsNxR16ldHAkjQ4tirM5W"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-6dae-772d-b2c5-6409cf840201
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=.hkZiT…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 29
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< 
+
+----- Troca 3 -----
+# reuso após logout
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+
+<<< HTTP 200 OK   (241 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e152058054f6e-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?limit=1&select=id
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=63yWImqziPIoU39vIufw8HJeNWG2LyVIVxpInCm6FHAO%2FeFDdJjOA6Dc2hRuLI%2Ba9pwTMS48HNwP2FawxPoR1WfC%2BXq0qRXQi4%2BtWCuabs9FPJ0hNFscHURfQiNHv%2BJhmaGP6FqVZ%2BDeVT%2FjqIlE7JD%2BRHnWMXfrAhaLCrGdiwWjo9Ahn75X7lN%2BEVbX"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-7044-7f90-a751-77cee7c61132
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=SnyAPt…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 3
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+TTL ~60 min. PostgREST valida JWT stateless.

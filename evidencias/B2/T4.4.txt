@@ -1,0 +1,8 @@
+CASO T4.4 - Fluxo custoso (20 pedidos de redefinição)
+App: B2
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+20 pedidos. Status: {"200":4,"429":16}. (passwordResetRateLimiter 5/IP+email/15min + ipRateLimiter.)

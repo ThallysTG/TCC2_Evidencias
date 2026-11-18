@@ -1,0 +1,99 @@
+CASO T8.3 - Erros detalhados (JSON malformado, id inválido, tipos errados)
+App: B3
+========================================================================
+----- Troca 1 -----
+# JSON malformado
+>>> POST http://localhost:8080/api/auth/login
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"email": "a@a.com", "password":
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=197, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Requisição inválida."}
+
+----- Troca 2 -----
+# id não-UUID
+>>> GET http://localhost:8080/api/tasks/abc
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 93
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=263, reset=899
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Dados inválidos.","details":[{"field":"id","message":"Identificador inválido."}]}
+
+----- Troca 3 -----
+# tipos errados
+>>> POST http://localhost:8080/api/tasks
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"title":{"$ne":1},"status":123}
+
+<<< HTTP 400 Bad Request   (3 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 153
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=100, remaining=75, reset=899
+<<< ratelimit-policy: 100;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Dados inválidos.","details":[{"field":"title","message":"Expected string, received object"},{"field":"status","message":"Status inválido."}]}

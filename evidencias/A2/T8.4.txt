@@ -1,0 +1,121 @@
+CASO T8.4 - Exposição de tecnologia (X-Powered-By, /.env, /debug, /api-docs)
+App: A2
+========================================================================
+----- Troca 1 -----
+# cabeçalhos
+>>> GET http://localhost:3000/api/health
+
+<<< HTTP 200 OK   (1 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 79
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"4f-xp4YLKt2T7pWzyNTDJ9d+0egHLM"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"status":"ok","service":"TaskFlow API","timestamp":"2026-11-07T00:02:25.548Z"}
+
+----- Troca 2 -----
+# /.env
+>>> GET http://localhost:5173/.env
+
+<<< HTTP 200 OK   (1 ms)
+<<< accept-ranges: bytes
+<<< connection: keep-alive
+<<< content-length: 695
+<<< content-type: text/html
+<<< etag: "6aee6956-2b7"
+<<< server: nginx/1.31.0
+<<<
+<<< <!DOCTYPE html>
+<<< <html lang="pt-BR">
+<<<   <head>
+<<<     <meta charset="UTF-8" />
+<<<     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<     <title>TaskFlow — Gestão de Tarefas</title>
+<<<     <link rel="preconnect" href="https://fonts.googleapis.com" />
+<<<     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<<<     <link
+<<<       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+<<<       rel="stylesheet"
+<<<     />
+<<<     <script type="module" crossorigin src="/assets/index-LTfyBY_B.js"></script>
+<<<     <link rel="stylesheet" crossorigin href="/assets/index-Dfo0Bo-e.css">
+<<<   </head>
+<<<   <body>
+<<<     <div id="root"></div>
+<<<   </body>
+<<< </html>
+<<< 
+<<< 
+
+----- Troca 3 -----
+# /debug
+>>> GET http://localhost:3000/api/debug
+
+<<< HTTP 404 Not Found   (1 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 33
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"21-PaNfZjbJs/ceEozrj6/1M68onGw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Rota não encontrada."}
+
+----- Troca 4 -----
+# /api-docs
+>>> GET http://localhost:3000/api/api-docs
+
+<<< HTTP 404 Not Found   (1 ms)
+<<< access-control-allow-origin: *
+<<< connection: keep-alive
+<<< content-length: 33
+<<< content-security-policy: default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"21-PaNfZjbJs/ceEozrj6/1M68onGw"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=15552000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: SAMEORIGIN
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Rota não encontrada."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+X-Powered-By = ausente (helmet remove na API :3000).
+ACHADO: o frontend (nginx :5173) expõe o cabeçalho "Server: nginx/1.31.0" (Troca 2), revelando o software do servidor e sua versão exata - disclosure de tecnologia de baixa severidade (server_tokens on).
+ATENÇÃO (não é vulnerabilidade): o GET http://localhost:5173/.env retornou HTTP 200, mas o corpo é o index.html da SPA (fallback try_files .../index.html do nginx), NÃO o conteúdo do arquivo .env. O arquivo .env não é exposto.
+/api/debug e /api/api-docs na API retornam 404 (rota não encontrada).

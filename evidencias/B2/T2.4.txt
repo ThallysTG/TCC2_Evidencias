@@ -1,0 +1,102 @@
+CASO T2.4 - Vida útil e logout (reusar token após logout)
+App: B2
+========================================================================
+----- Troca 1 -----
+# logout
+>>> POST http://localhost:3000/api/auth/logout
+>>> Authorization: Bearer eyJhbGciOiJI…vb8YHvBM [267 chars]
+
+<<< HTTP 200 OK   (4 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 43
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2b-wT5cum20oYaerqESL5P7wlPjOSA"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 200
+<<< ratelimit-policy: 200;w=900
+<<< ratelimit-remaining: 199
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Logout realizado com sucesso."}
+
+----- Troca 2 -----
+# reuso pós-logout (1)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…vb8YHvBM [267 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-Xgtdpl+BmjXMpM8SfZ272F/DQs0"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 204
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão encerrada ou expirada."}
+
+----- Troca 3 -----
+# reuso (2)
+>>> GET http://localhost:3000/api/auth/me
+>>> Authorization: Bearer eyJhbGciOiJI…vb8YHvBM [267 chars]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"2a-Xgtdpl+BmjXMpM8SfZ272F/DQs0"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 203
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão encerrada ou expirada."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Expiração do token: 2.0h (exp-iat).

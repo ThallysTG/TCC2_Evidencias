@@ -1,0 +1,19 @@
+CASO T2.2 - Política de senha (cadastro com senha "123")
+App: A3
+========================================================================
+# register password=123
+>>> POST http://localhost:3000/api/auth/register
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Senha Fraca","email":"senhafraca-1794023326171@teste.local","password":"****"}
+
+<<< HTTP 400 Bad Request   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 95
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"5f-iIFm1IyDUqWEWRWWyhyfc4ZqRm8"
+<<< keep-alive: timeout=5
+<<< ratelimit: limit=50, remaining=38, reset=269
+<<< ratelimit-policy: 50;w=900
+<<<
+<<< {"error":"Dados inválidos.","fields":{"password":"****"}}

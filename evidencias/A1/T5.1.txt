@@ -1,0 +1,76 @@
+CASO T5.1 - Listagem administrativa com usuário comum (RPC admin_list_users)
+App: A1
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/rpc/admin_list_users
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+>>> Content-Type: application/json
+>>>
+>>> {}
+
+<<< HTTP 403 Forbidden   (277 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d5f585bd5fa-GRU
+<<< connection: keep-alive
+<<< content-encoding: br
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=BXeYgIKTz6TBN5Av14pfr95iOHgx8SyyVLaGWGAt5wYs9MIeEf6tscvqjQG4N19qHaZKXPvYyeRevWTp7WazwkMOrR174PZU9VDGTInif1TMG1zOQAma1rD4zm7uTgjXL4mvfHtlXj26CH%2BzIzTu35rSbKYlTVdalG%2FcXaLRyD73TxvqL%2BwMcVHA3N5H"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-97a7-7112-8a60-aa39dae58f2e
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=Q0F2OA…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 24
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":null,"message":"Acesso negado"}
+
+----- Troca 2 -----
+# 2ª
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/rpc/admin_list_users
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+>>> Content-Type: application/json
+>>>
+>>> {}
+
+<<< HTTP 403 Forbidden   (256 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d611aa56288-GRU
+<<< connection: keep-alive
+<<< content-encoding: br
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=A7O%2FVH%2FGFHpqZZOkA8sZYE%2F%2Fp%2B7NTjsPhxEiwwRY7eDQxwbvPTV8D%2BjOomHGL6Fkw%2F0kuAzcEpiaDNHR0pJhE7pugI%2F8zlM%2FSSo5zTniD%2B1s%2BiUojkDQb9qhRdPHAztAmAAH8N%2Bq%2BOqUmiWJf1XbTYPSFsYsiKjuWgA6b%2BL0VlvT6nqPNfrhXciGPMuZ"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-98c4-763f-8192-7818f949f110
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=yaM2.o…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 2
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":null,"message":"Acesso negado"}

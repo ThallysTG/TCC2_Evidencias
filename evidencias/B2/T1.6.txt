@@ -1,0 +1,64 @@
+CASO T1.6 - Sem autenticação (GET /tasks e /tasks/{id} sem token)
+App: B2
+========================================================================
+----- Troca 1 -----
+# GET /tasks sem token
+>>> GET http://localhost:3000/api/tasks
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 54
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"36-QtZQHWDpESbrkG44beGpvt/eeMk"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 222
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autenticado. Token de acesso ausente."}
+
+----- Troca 2 -----
+# GET /tasks/{id} sem token
+>>> GET http://localhost:3000/api/tasks/616ee1ed-2c57-4b7e-b64e-972af3217765
+
+<<< HTTP 401 Unauthorized   (0 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 54
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"36-QtZQHWDpESbrkG44beGpvt/eeMk"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 300
+<<< ratelimit-policy: 300;w=900
+<<< ratelimit-remaining: 221
+<<< ratelimit-reset: 882
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autenticado. Token de acesso ausente."}

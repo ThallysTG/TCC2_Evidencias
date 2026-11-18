@@ -1,0 +1,36 @@
+CASO T1.2 - Edição de tarefa alheia (token A, PUT /tasks/{id de B})
+App: A3
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> PUT http://localhost:3000/api/tasks/40
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"INVADIDA por A","status":"concluida","priority":"alta"}
+
+<<< HTTP 404 Not Found   (3 ms)
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"23-kfHwci2bzba50QK9+WrCTw1fI20"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Tarefa não encontrada."}
+
+----- Troca 2 -----
+# 2ª
+>>> PUT http://localhost:3000/api/tasks/40
+>>> Authorization: Bearer eyJhbGciOiJI…PntseI3Y [148 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"title":"INVADIDA por A 2","status":"concluida","priority":"alta"}
+
+<<< HTTP 404 Not Found   (2 ms)
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"23-kfHwci2bzba50QK9+WrCTw1fI20"
+<<< keep-alive: timeout=5
+<<<
+<<< {"error":"Tarefa não encontrada."}

@@ -1,0 +1,13 @@
+CASO T8.6 - Configuração do banco (porta 5432 exposta no host)
+App: A3
+========================================================================
+# teste TCP
+>>> TCP 127.0.0.1:5432
+
+<<< HTTP FECHADA    (0 ms)
+<<<
+<<< Conexão recusada (porta não publicada).
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml do A3 NÃO publica a porta do banco (serviço db sem "ports"). Diferente do A2.

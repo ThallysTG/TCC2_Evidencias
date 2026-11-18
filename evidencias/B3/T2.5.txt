@@ -1,0 +1,151 @@
+CASO T2.5 - Segredo de assinatura (forjar cookie com segredos default/fracos)
+App: B3
+========================================================================
+----- Troca 1 -----
+# forjado c/ segredo="troque-por-um-segred…"
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=208, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 2 -----
+# forjado c/ segredo="secret"
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=207, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 3 -----
+# forjado c/ segredo="changeme"
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=206, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 4 -----
+# forjado c/ segredo="taskflow"
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=205, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+----- Troca 5 -----
+# forjado c/ segredo="troque-este-segredo-…"
+>>> GET http://localhost:8080/api/auth/me
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 42
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=204, reset=886
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< set-cookie: taskflow_session=; Path=/api; HttpOnly; Secure; SameSite=Strict…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Sessão inválida ou expirada."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+JWT_SECRET do deploy é aleatório de 64 hex (lido do .env, validado ≥32). Nenhum segredo default/fraco forjou um cookie aceito. Camadas extras: emissor/audiência verificados e a sessão (jti) precisa existir no banco. .env versionado no repo? Não (README manda não versionar; só .env.example tem placeholders).

@@ -1,0 +1,35 @@
+CASO T2.2 - Política de senha (cadastro com senha "123")
+App: B3
+========================================================================
+# register password=123
+>>> POST http://localhost:8080/api/auth/register
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"name":"Senha Fraca","email":"fraca-1794062348803@teste.local","password":"****"}
+
+<<< HTTP 400 Bad Request   (2 ms)
+<<< access-control-allow-credentials: true
+<<< access-control-allow-origin: http://localhost:8080
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 116
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=10, remaining=4, reset=3599
+<<< ratelimit-policy: 10;w=3600
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Dados inválidos.","details":[{"field":"password","message":"A senha deve ter no mínimo 8 caracteres."}]}

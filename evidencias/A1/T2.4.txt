@@ -1,0 +1,107 @@
+CASO T2.4 - Vida útil e logout (reusar access token após logout)
+App: A1
+========================================================================
+----- Troca 1 -----
+# antes do logout (baseline)
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+
+<<< HTTP 200 OK   (456 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5c1ca74df22-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?limit=1&select=id
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=r%2BaVvcApeA2D%2BFZiRKrKh5166d9BICpMNDDcrM5VLccTcGX5pW%2FXr6tcq9ho%2F%2F732uQgti%2BSDPCRX7N5OfcSLecv39D3rIm4467y4huUrtltDdbN6bll1eJ3LTJ4HEzpD0fA%2B86sfgLeAouWYmvDf6NmJarF4eAnhgzoxkEva0bt3IMir7fUGlPU221n"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-d528-7078-90db-b265a22266ff
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=u95JwZ…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 197
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+----- Troca 2 -----
+# POST /auth/v1/logout
+>>> POST https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/auth/v1/logout
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+
+<<< HTTP 204 No Content   (291 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5c49da07ff0-GRU
+<<< connection: keep-alive
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=LY8HkPOeqy8q7HWVulYdBdyvJjfKlmqbFVg0q4rv9BfP60q29ibuO9zxfsPbVfEkmotWpopr%2BLC%2FGQ7HchAw0Z0Dj7fVe0Xep6WCRlorst7MruXjgQO7S9gcXXEUQcu13wTRAWI1q5xoMbWea0z%2FztQO75NwuKbXyimc3tsNu%2FPtymHTiCEhnQnRrA%2B%2B"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-d6fa-7df1-be23-5b1993517be1
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=CD4xbj…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin, Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 35
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< 
+
+----- Troca 3 -----
+# reusar o MESMO token após logout
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LCKLKFHA [970 chars]
+
+<<< HTTP 200 OK   (272 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56dc5c66b50df22-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-location: /tasks?limit=1&select=id
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=wpCOIU6vi0ryJchUjuuFcl1OgafG%2FZzl4kGbG79ePNFoUwXiuH2Q%2FclHdEkORjfCePIHSJAb1CNXNluDdMaQW9jKE0HmnmdlHn3H6tqyGIVaCUbn8AkWXO15uuaqCXCLabdo%2BhaToIIvp4cb72v5PjgsdMZgFAUbeBG7lkfuC1yi8at8yqcEnbFp88LH"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 029eef7c-65c5-408e-875a-11721da40e13
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b6e0-d811-748c-ad6d-d5b8854c325b
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=omfS9S…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 25
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Access token: iat->exp = 60 min de validade (exp=1794072786). O MESMO access token continua aceito pelo PostgREST após o logout. O PostgREST valida o JWT de forma stateless (assinatura+exp), sem consultar sessão; o logout revoga o refresh token, mas o access token já emitido vale até expirar.

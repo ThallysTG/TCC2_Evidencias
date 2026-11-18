@@ -1,0 +1,866 @@
+{
+  "info": {
+    "name": "TCC - A2 (Gemini, condição A) - API Security",
+    "description": "Coleção de testes OWASP API Top 10 (2023) do app A2. Rode primeiro a pasta \"0 - Setup\" para popular tokens/ids no environment. Use o Collection Runner para T2.1 e T4.1.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0 - Setup (rodar primeiro)",
+      "item": [
+        {
+          "name": "Login usuário A -> salva tokenA",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario.a@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.token) pm.environment.set(\"tokenA\", j.token);",
+                  "pm.test(\"200\", ()=>pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login usuário B -> salva tokenB",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario.b@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.token) pm.environment.set(\"tokenB\", j.token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login admin -> salva adminToken",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@taskflow.com\",\n  \"password\": \"admin123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.token) pm.environment.set(\"adminToken\", j.token);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Pega 1 tarefa de B -> salva taskIdB",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenB}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks?limit=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let j = pm.response.json(); if (j.tasks && j.tasks[0]) pm.environment.set(\"taskIdB\", j.tasks[0].id);"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "API1 - BOLA",
+      "item": [
+        {
+          "name": "T1.1 Ler tarefa de B com token de A",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks/{{taskIdB}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks",
+                "{{taskIdB}}"
+              ]
+            },
+            "description": "Vulnerável se retornar a tarefa de B. Esperado: 404 (filtrado por user_id)."
+          },
+          "response": []
+        },
+        {
+          "name": "T1.2 Editar tarefa de B com token de A",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"INVADIDA\",\n  \"status\": \"concluida\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/tasks/{{taskIdB}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks",
+                "{{taskIdB}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T1.3 Excluir tarefa de B com token de A",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks/{{taskIdB}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks",
+                "{{taskIdB}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "T1.4 Listar tudo (forçar userId=B)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks?userId=3&limit=100",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "userId",
+                  "value": "3"
+                },
+                {
+                  "key": "limit",
+                  "value": "100"
+                }
+              ]
+            },
+            "description": "Vulnerável se a lista contiver tarefas de B."
+          },
+          "response": []
+        },
+        {
+          "name": "T1.6 GET /tasks sem token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            },
+            "description": "Vulnerável se retornar tarefas sem autenticação. Esperado: 401."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API2 - Broken Authentication",
+      "item": [
+        {
+          "name": "T2.1 Login senha errada (use no Collection Runner, 50x)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario.a@teste.local\",\n  \"password\": \"senha-errada-{{$randomInt}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Rode 50 iterações no Collection Runner. Vulnerável se nunca aparecer 429/bloqueio."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.2 Cadastro com senha \"123\"",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Fraca\",\n  \"email\": \"fraca{{$timestamp}}@teste.local\",\n  \"password\": \"123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Vulnerável se 201. Esperado: 400 (mín. 6)."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.5 Token FORJADO (JWT_SECRET default) -> perfil de B",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer COLE_O_TOKEN_FORJADO_AQUI"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/profile",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "profile"
+              ]
+            },
+            "description": "Gere o token com o segredo taskflow-super-secret-jwt-key-2026 em jwt.io (payload {\"id\":<id de B>}) e cole acima. Vulnerável se 200 com o perfil de B."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.7a Cadastro e-mail EXISTENTE",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"x\",\n  \"email\": \"usuario.a@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Compare com T2.7b: 409 vs 201 = enumeração."
+          },
+          "response": []
+        },
+        {
+          "name": "T2.7b Cadastro e-mail NOVO",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"x\",\n  \"email\": \"novo{{$timestamp}}@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API4 - Unrestricted Resource Consumption",
+      "item": [
+        {
+          "name": "T4.1 GET /tasks (use no Collection Runner, 300x)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks?limit=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "1"
+                }
+              ]
+            },
+            "description": "Rode 300 iterações. Vulnerável se nenhum 429."
+          },
+          "response": []
+        },
+        {
+          "name": "T4.2 limit=100000",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks?limit=100000",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100000"
+                }
+              ]
+            },
+            "description": "Vulnerável se retornar mais de 100 itens. Esperado: teto de 100."
+          },
+          "response": []
+        },
+        {
+          "name": "T4.4 Forgot-password (Runner 20x, mesmo e-mail)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"usuario.a@teste.local\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/forgot-password",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "forgot-password"
+              ]
+            },
+            "description": "Rode 20x. Vulnerável se todas 200 (sem limite)."
+          },
+          "response": []
+        },
+        {
+          "name": "T4.5 Cadastro em massa (Runner 30x)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Massa\",\n  \"email\": \"massa{{$guid}}@teste.local\",\n  \"password\": \"****\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Rode 30x. Vulnerável se todas 201."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API5 - BFLA",
+      "item": [
+        {
+          "name": "T5.1 GET /admin/users com token comum (A)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/admin/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "users"
+              ]
+            },
+            "description": "Vulnerável se 200. Esperado: 403."
+          },
+          "response": []
+        },
+        {
+          "name": "T5.2 Desativar B com token comum (A)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"is_active\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/admin/users/{{taskIdB}}/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "admin",
+                "users",
+                "{{taskIdB}}",
+                "status"
+              ]
+            },
+            "description": "Use o ID do usuário B. Esperado: 403."
+          },
+          "response": []
+        },
+        {
+          "name": "T5.3 Cadastro com role=admin",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Promo\",\n  \"email\": \"promo{{$timestamp}}@teste.local\",\n  \"password\": \"****\",\n  \"role\": \"admin\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/register",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Vulnerável se o usuário criado vier com role=admin."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "API8 - Security Misconfiguration",
+      "item": [
+        {
+          "name": "T8.2 CORS Origin atacante",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "https://atacante.example"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{tokenA}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/tasks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "tasks"
+              ]
+            },
+            "description": "Veja Access-Control-Allow-Origin na resposta."
+          },
+          "response": []
+        },
+        {
+          "name": "T8.3 JSON malformado",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"email\": \"a@a.com\", \"password\":",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/auth/login",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Vulnerável se vazar stack/SQL/caminho. Esperado: erro genérico."
+          },
+          "response": []
+        },
+        {
+          "name": "T8.4 Cabeçalhos / tecnologia",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/health",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "health"
+              ]
+            },
+            "description": "Confira X-Powered-By (ausente) e, no frontend :5173, o header Server: nginx/<versão>."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

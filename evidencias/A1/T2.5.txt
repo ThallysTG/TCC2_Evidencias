@@ -1,0 +1,40 @@
+CASO T2.5 - Segredo de assinatura (forjar JWT com segredo adivinhado)
+App: A1
+========================================================================
+# JWT forjado p/ admin
+>>> GET https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?select=id&limit=1
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJI…a_johPns [225 chars]
+
+<<< HTTP 401 Unauthorized   (243 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d6dfd6c6288-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=PGRST301
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=XolWezaepXIxDhjOZ%2BeCJwn1eMNSr0%2Fm3JsFqJ0fyQ%2FR%2FkqSpobUixdAUfSiw98L4eQoKteWw23m3KQpU51Ytm7M0TbxXbmIep2B5HEeJ46qdZcYTfNLa4uwSmKK3IqpWkt%2FYrEFMCvbmMFgV3ZIyqAs6s8T2kyu4r25bF7gEJXrkVJlTplEsxpzSfiU"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: HS256
+<<< sb-jwt-sub: 669f76ff-2f8e-47f2-b53e-e3a70afcc693
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-a0cc-72bb-9606-a04b7c17934b
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=46ngEH…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< www-authenticate: Bearer error="invalid_token", error_description="No suitable key or wrong key type"
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 1
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"PGRST301","details":"None of the keys was able to decode the JWT","hint":null,"message":"No suitable key or wrong key type"}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+O segredo JWT do projeto Supabase é gerenciado pela plataforma (não está no repositório).

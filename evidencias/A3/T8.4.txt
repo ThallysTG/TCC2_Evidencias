@@ -1,0 +1,79 @@
+CASO T8.4 - Exposição de tecnologia (X-Powered-By, Server, /.env)
+App: A3
+========================================================================
+----- Troca 1 -----
+# API /health (cabeçalhos)
+>>> GET http://localhost:3000/api/health
+
+<<< HTTP 200 OK   (1 ms)
+<<< connection: keep-alive
+<<< content-length: 15
+<<< content-type: application/json; charset=utf-8
+<<< etag: W/"f-VaSQ4oDUiZblZNAEkkN+sX+q3Sg"
+<<< keep-alive: timeout=5
+<<<
+<<< {"status":"ok"}
+
+----- Troca 2 -----
+# Frontend / (cabeçalhos)
+>>> GET http://localhost:8080/
+
+<<< HTTP 200 OK   (0 ms)
+<<< accept-ranges: bytes
+<<< cache-control: no-cache
+<<< connection: keep-alive
+<<< content-length: 787
+<<< content-type: text/html
+<<< etag: "6aed3f20-313"
+<<< server: nginx/1.27.5
+<<<
+<<< <!doctype html>
+<<< <html lang="pt-BR">
+<<<   <head>
+<<<     <meta charset="UTF-8" />
+<<<     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<     <meta name="description" content="TaskFlow - gestão de tarefas para equipes pequenas" />
+<<<     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><path d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+<<<     <title>TaskFlow</title>
+<<<     <script type="module" crossorigin src="/assets/index-Dgr_u5CU.js"></script>
+<<<     <link rel="stylesheet" crossorigin href="/assets/index-BScpOdcq.css">
+<<<   </head>
+<<<   <body>
+<<<     <div id="root"></div>
+<<<   </body>
+<<< </html>
+<<< 
+
+----- Troca 3 -----
+# /.env
+>>> GET http://localhost:8080/.env
+
+<<< HTTP 200 OK   (3 ms)
+<<< accept-ranges: bytes
+<<< cache-control: no-cache
+<<< connection: keep-alive
+<<< content-length: 787
+<<< content-type: text/html
+<<< etag: "6aed3f20-313"
+<<< server: nginx/1.27.5
+<<<
+<<< <!doctype html>
+<<< <html lang="pt-BR">
+<<<   <head>
+<<<     <meta charset="UTF-8" />
+<<<     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<<<     <meta name="description" content="TaskFlow - gestão de tarefas para equipes pequenas" />
+<<<     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%234f46e5'/><path d='M9 16.5l4.5 4.5L23 11.5' stroke='white' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+<<<     <title>TaskFlow</title>
+<<<     <script type="module" crossorigin src="/assets/index-Dgr_u5CU.js"></script>
+<<<     <link rel="stylesheet" crossorigin href="/assets/index-BScpOdcq.css">
+<<<   </head>
+<<<   <body>
+<<<     <div id="root"></div>
+<<<   </body>
+<<< </html>
+<<< 
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+X-Powered-By(API)=(ausente); Server(API)=(ausente); Server(front)=nginx/1.27.5; /.env status=200 (SPA fallback, não vaza).

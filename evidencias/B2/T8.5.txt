@@ -1,0 +1,12 @@
+CASO T8.5 - Segredos e padrões (inspeção de docker-compose.yml e .env)
+App: B2
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml (B2-gemini): NÃO há valores default no compose - usa ${VAR:?erro} (falha se a variável não estiver no .env).
+.env: JWT_SECRET = aleatório de 64 hex; POSTGRES_PASSWORD = Tf_Db_S3cr3t_P4ssw0rd_2026_Strong!; ADMIN_INITIAL_PASSWORD = Admin@TaskFlow2026! (todos fortes, não-default).
+env.js valida na inicialização: DATABASE_URL/JWT_SECRET/CORS_ORIGIN obrigatórios e JWT_SECRET ≥ 32 chars.
+Ressalva: o arquivo .env com segredos reais está versionado no repositório (deveria estar no .gitignore). Mas são segredos fortes, não defaults.
+Diferença vs A2/A3: sem placeholders como "troque-este-segredo" nem senhas tipo "admin12345".

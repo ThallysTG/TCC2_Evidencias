@@ -1,0 +1,108 @@
+CASO T2.6 - Redefinição de senha (validação, previsibilidade)
+App: B2
+========================================================================
+----- Troca 1 -----
+# forgot-password
+>>> POST http://localhost:3000/api/auth/forgot-password
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.b@teste.local"}
+
+<<< HTTP 200 OK   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 105
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"69-P/IbhtxEpxC9cP+9jCdBE0blnnU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 5
+<<< ratelimit-policy: 5;w=900
+<<< ratelimit-remaining: 4
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"message":"Se o e-mail informado estiver cadastrado, você receberá um link para redefinir sua senha."}
+
+----- Troca 2 -----
+# reset token inválido
+>>> POST http://localhost:3000/api/auth/reset-password
+>>> Content-Type: application/json
+>>>
+>>> {"token":"token-invalido-1234567890123456789012","password":"****"}
+
+<<< HTTP 400 Bad Request   (3 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 57
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"39-tQYHVVryJTaUEXYKydM0h7jes9s"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 5
+<<< ratelimit-policy: 5;w=900
+<<< ratelimit-remaining: 4
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Token de redefinição inválido ou expirado."}
+
+----- Troca 3 -----
+# reset token/senha inválidos
+>>> POST http://localhost:3000/api/auth/reset-password
+>>> Content-Type: application/json
+>>>
+>>> {"token":"x","password":"****"}
+
+<<< HTTP 400 Bad Request   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 57
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"39-tQYHVVryJTaUEXYKydM0h7jes9s"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 5
+<<< ratelimit-policy: 5;w=900
+<<< ratelimit-remaining: 3
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Token de redefinição inválido ou expirado."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Token = crypto.randomBytes(32) guardado como SHA-256, expira em 30min, uso único (used_at), tokens anteriores invalidados a cada pedido, e a redefinição revoga todas as sessões. Token inválido rejeitado.

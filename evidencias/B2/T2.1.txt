@@ -1,0 +1,110 @@
+CASO T2.1 - Força bruta no login (30 senhas erradas na conta A)
+App: B2
+========================================================================
+----- Troca 1 -----
+# tentativa 1
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 401 Unauthorized   (146 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 35
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"23-Lsrp38LvLCdmqOaVeQr4VJ8T4Ng"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 10
+<<< ratelimit-policy: 10;w=900
+<<< ratelimit-remaining: 8
+<<< ratelimit-reset: 900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Credenciais inválidas."}
+
+----- Troca 2 -----
+# tentativa 15
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 429 Too Many Requests   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 97
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"61-ZPNJ3FllylaOFmNihO3VQzo28BU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 10
+<<< ratelimit-policy: 10;w=900
+<<< ratelimit-remaining: 0
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< retry-after: 899
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Muitas tentativas de login. Conta ou acesso temporariamente bloqueado por 15 minutos."}
+
+----- Troca 3 -----
+# tentativa 30
+>>> POST http://localhost:3000/api/auth/login
+>>> Content-Type: application/json
+>>>
+>>> {"email":"usuario.a@teste.local","password":"****"}
+
+<<< HTTP 429 Too Many Requests   (1 ms)
+<<< access-control-allow-credentials: true
+<<< connection: keep-alive
+<<< content-length: 97
+<<< content-security-policy: default-src 'self';script-src 'self';style-src 'self';img-src 'self' data:;connect-src 'self' http://localhost:5173;frame-ancestors 'none';object-src 'none';base-uri 'self';form-action 'self'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< etag: W/"61-ZPNJ3FllylaOFmNihO3VQzo28BU"
+<<< keep-alive: timeout=5
+<<< origin-agent-cluster: ?1
+<<< ratelimit-limit: 10
+<<< ratelimit-policy: 10;w=900
+<<< ratelimit-remaining: 0
+<<< ratelimit-reset: 899
+<<< referrer-policy: no-referrer
+<<< retry-after: 899
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< vary: Origin
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Muitas tentativas de login. Conta ou acesso temporariamente bloqueado por 15 minutos."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Distribuição em 30 tentativas: {"401":3,"429":27}. Primeiro 429/403: tentativa 4. (lockout de conta após 5 falhas por 15min + loginRateLimiter 10/IP+email/15min.)

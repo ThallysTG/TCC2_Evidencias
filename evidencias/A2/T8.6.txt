@@ -1,0 +1,13 @@
+CASO T8.6 - Configuração do banco (porta 5432 exposta no host)
+App: A2
+========================================================================
+# teste de conexão TCP
+>>> TCP 127.0.0.1:5432
+
+<<< HTTP ABERTA    (0 ms)
+<<<
+<<< Conexão TCP aceita na porta 5432 do host.
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+docker-compose.yml publica "5432:5432" (0.0.0.0). Credenciais default: taskflow / taskflow123 / taskflow_db.

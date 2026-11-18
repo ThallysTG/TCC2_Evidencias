@@ -1,0 +1,56 @@
+CASO T1.6 - Sem autenticação (GET /tasks sem cookie)
+App: B3
+========================================================================
+----- Troca 1 -----
+# GET /tasks
+>>> GET http://localhost:8080/api/tasks
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 29
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=229, reset=887
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autenticado."}
+
+----- Troca 2 -----
+# GET /tasks/{id}
+>>> GET http://localhost:8080/api/tasks/3522d8f6-69d9-4f2d-9b67-903fab7f847d
+
+<<< HTTP 401 Unauthorized   (1 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-length: 29
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=228, reset=887
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Não autenticado."}

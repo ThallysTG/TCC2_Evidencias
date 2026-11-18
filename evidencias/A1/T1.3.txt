@@ -1,0 +1,37 @@
+CASO T1.3 - Exclusão de tarefa alheia (userA DELETE tarefa do admin)
+App: A1
+========================================================================
+# delete
+>>> DELETE https://c--0eac8a32-851b-57b1-b135-7ca4c968354f-prod.lovable.cloud/rest/v1/tasks?id=eq.c4c9d625-6270-4bdc-ad44-33447710a942
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…iZjEcJNg [964 chars]
+>>> Prefer: return=representation
+
+<<< HTTP 200 OK   (274 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56d3d53be14d5fa-GRU
+<<< connection: keep-alive
+<<< content-length: 2
+<<< content-profile: public
+<<< content-range: */*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< preference-applied: return=representation
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=Mlu2WLSCPkjhv%2BXvN5KxC21SicK2NICZcO%2BEGyzgU1TMOC6PQoeUdQehCjLu20i3XDe5KW19i%2BunkAzVinWun4zCTWJ1UWCaeZdFaJpScac4OaqtuNvGDkOw%2FegUeMTnnnyBeNhAJxCnnRLP7YDORxWCOoZ4CR8QnqiSxzA0lOfIRS6lEM0mKpVRU5HJ"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://pkjsdqbvdqvhubfkzndv.supabase.co/auth/v1
+<<< sb-jwt-sub: 07c0ee4b-b12e-4d9f-8ae9-fe5246b6f7ec
+<<< sb-project-ref: pkjsdqbvdqvhubfkzndv
+<<< sb-request-id: 01a1b68b-9067-739c-b457-59129c702587
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=KY3TW7…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 5
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< []

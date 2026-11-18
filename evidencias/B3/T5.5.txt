@@ -1,0 +1,34 @@
+CASO T5.5 - Controle só na interface (rota do painel com cookie comum)
+App: B3
+========================================================================
+# GET /admin/users comum
+>>> GET http://localhost:8080/api/admin/users
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+
+<<< HTTP 403 Forbidden   (2 ms)
+<<< cache-control: no-store
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-security-policy: default-src 'none';frame-ancestors 'none';base-uri 'none';form-action 'none'
+<<< content-type: application/json; charset=utf-8
+<<< cross-origin-opener-policy: same-origin
+<<< cross-origin-resource-policy: same-origin
+<<< origin-agent-cluster: ?1
+<<< pragma: no-cache
+<<< ratelimit: limit=300, remaining=218, reset=887
+<<< ratelimit-policy: 300;w=900
+<<< referrer-policy: no-referrer
+<<< strict-transport-security: max-age=31536000; includeSubDomains
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-dns-prefetch-control: off
+<<< x-download-options: noopen
+<<< x-frame-options: DENY
+<<< x-permitted-cross-domain-policies: none
+<<< x-xss-protection: 0
+<<<
+<<< {"error":"Acesso negado."}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+O painel está no bundle do frontend, mas o backend aplica authenticate+requireAdmin.

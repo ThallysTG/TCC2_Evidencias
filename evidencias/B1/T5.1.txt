@@ -1,0 +1,76 @@
+CASO T5.1 - Listagem administrativa com usuário comum (RPC admin_list_users)
+App: B1
+========================================================================
+----- Troca 1 -----
+# 1ª
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/rpc/admin_list_users
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"_search":"","_limit":10,"_offset":0}
+
+<<< HTTP 403 Forbidden   (255 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e146c1e224f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: br
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=9696N5ixu3ed4cVXQ2QukSW3oWixP3j%2BfDAnzj4%2BtXzfRK8g2%2BLlZM%2BzHQYjXo6GTWFEYFUtnDbCnFQNI0WztdDcxLm081Iy6JSQjhGISuUYYuTuoZsQs76jA73YVjP394DdKOlyKX9p9IF4e1d%2BwvtR7Ss4A63gu59E31CNs6ncsNEjFJSSzXHMDzZg"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b711-ff9a-7d12-bb4c-342350df248c
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=jZTnKu…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 7
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":null,"message":"forbidden"}
+
+----- Troca 2 -----
+# 2ª
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/rpc/admin_list_users
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+>>> Content-Type: application/json
+>>>
+>>> {"_search":"","_limit":10,"_offset":0}
+
+<<< HTTP 403 Forbidden   (301 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e146da8bb4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: br
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=JAS3WF09z%2BP2o%2Fj5Fk2nJWYXyCLIAuT56htcRcvD3VfGz2La0iVItp2PnFX2XCQ1MHGF8ryhs1nOpXCoMiwFNe11iOyBx7HRW731oe2D0kFySNXLhytPWEy7JP5wZqZvLJKkwkdjB84u66lYvoRYt5PBQlKvVusbcYIGUagamtPSxGhgh65GBSZj0u%2F%2F"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-00a6-7422-a3b1-366e8a36bb0d
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=Rel9qO…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 4
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":null,"message":"forbidden"}

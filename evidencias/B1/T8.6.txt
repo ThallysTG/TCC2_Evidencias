@@ -1,0 +1,8 @@
+CASO T8.6 - Configuração de banco (exposição)
+App: B1
+========================================================================
+
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Banco Postgres do Supabase NÃO é exposto; acesso só via PostgREST com apikey+RLS. Plataforma gerencia.

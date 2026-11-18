@@ -1,0 +1,46 @@
+CASO T4.2 - Tamanho de página (limit=100000)
+App: B1
+========================================================================
+# limit=100000
+>>> GET https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/tasks?select=*&limit=100000
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…LflJQIbA [964 chars]
+
+<<< HTTP 200 OK   (694 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e152dba2bc65f-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-location: /tasks?limit=100000&select=%2A
+<<< content-profile: public
+<<< content-range: 0-4/*
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=OQVwq5zILzZ6fdG6e2NQtcPLiPl8lCuK%2F0LFrpeB3Dgo9lHyHOLqgUsdAJ8E0QbW9exXDC%2BkOuk16ckrBpjjKy6ozjS6bcF98MIl2lxkBpcatjohQEvdd7azAshZH8Q%2BRaoKvTZFelDRMLyxewWg9YRvfrRz9srGGF1XOzhQqRxyQwb8zDGdm9%2Fw1E6K"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 959299b6-a54b-4f45-aa6e-15aefa6cb7d2
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-78a5-728a-9f9c-89105c2bad45
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=_yb2wv…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 5
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< [{"id":"55cbca7c-ccae-4955-9d3a-a5061800ccc2","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","title":"Tarefa A #1","description":"desc 1","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:45.661589+00:00","updated_at":"2026-11-07T17:32:45.661589+00:00"}, 
+<<<  {"id":"ee333a42-fbf5-4e18-abe3-a51b9660012c","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","title":"Tarefa A #2","description":"desc 2","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:46.335508+00:00","updated_at":"2026-11-07T17:32:46.335508+00:00"}, 
+<<<  {"id":"22e74d5f-0aaa-4191-a1fe-e224f5cfc5e1","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","title":"Tarefa A #3","description":"desc 3","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:46.991078+00:00","updated_at":"2026-11-07T17:32:46.991078+00:00"}, 
+<<<  {"id":"31ca67a5-b6fb-4d26-94d4-5da8ef118c97","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","title":"Tarefa A #4","description":"desc 4","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:47.303356+00:00","updated_at":"2026-11-07T17:32:47.303356+00:00"}, 
+<<<  {"id":"bc6cf1b5-baac-4a8e-be8a-ecb1415c0a68","user_id":"959299b6-a54b-4f45-aa6e-15aefa6cb7d2","title":"Tarefa A #5","description":"desc 5","status":"pendente","priority":"media","due_date":null,"created_at":"2026-11-07T17:32:47.571932+00:00","updated_at":"2026-11-07T17:32:47.571932+00:00"}]
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+Retornou 5. Content-Range=0-4/*.

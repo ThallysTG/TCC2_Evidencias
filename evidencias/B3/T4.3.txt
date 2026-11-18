@@ -1,0 +1,24 @@
+CASO T4.3 - Tamanho do corpo (descrição de 1 MB)
+App: B3
+========================================================================
+# corpo ~1 MB
+>>> POST http://localhost:8080/api/tasks
+>>> Cookie: taskflow_session=eyJhbG…[trunc]
+>>> Origin: http://localhost:8080
+>>> Content-Type: application/json
+>>>
+>>> {"title":"grande","description":"<1 MB de 'A'>",...}
+
+<<< HTTP 413 Request Entity Too Large   (4 ms)
+<<< connection: close
+<<< content-length: 176
+<<< content-type: text/html
+<<<
+<<< <html>
+<<< <head><title>413 Request Entity Too Large</title></head>
+<<< <body>
+<<< <center><h1>413 Request Entity Too Large</h1></center>
+<<< <hr><center>nginx</center>
+<<< </body>
+<<< </html>
+<<< 

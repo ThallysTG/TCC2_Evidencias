@@ -1,0 +1,84 @@
+CASO T5.3 - Autopromoção (inserir/alterar user_roles para admin)
+App: B1
+========================================================================
+----- Troca 1 -----
+# INSERT user_roles
+>>> POST https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/user_roles
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"user_id":"14d3b45d-3fe1-4823-8504-846f9f1f2c58","role":"admin"}
+
+<<< HTTP 403 Forbidden   (792 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1471bfaf4f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=DjGX53a9ZvkqviR8PCKECB3ckSMlrn21hFzZsFV03jDy%2BGIuKchmjmDipc1ArIAa7VN4XBmNT8Il4QXs%2FHMHFF7YXl31Rf%2FLSbDfzkPGcys%2Fc5gTSDrxCbW1dn5Asjk%2FxRdgSGnd9Uehq2ots9VlyyW8tlL5Hq11cl5LtmYCyZV5Cd4igXN6eloJNc98"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-0320-7ce8-9932-1238860e0f5b
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=ZiWHbr…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 3
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":"Grant the required privileges to the current role with: GRANT INSERT ON public.user_roles TO authenticated;","message":"permission denied for table user_roles"}
+
+----- Troca 2 -----
+# PATCH user_roles
+>>> PATCH https://c--50401326-a488-4d3d-97c1-74c579368f8f-prod.lovable.cloud/rest/v1/user_roles?user_id=eq.14d3b45d-3fe1-4823-8504-846f9f1f2c58
+>>> apikey: sb_publishable_[chave removida]
+>>> Authorization: Bearer eyJhbGciOiJF…WK_Fdg_g [975 chars]
+>>> Content-Type: application/json
+>>> Prefer: return=representation
+>>>
+>>> {"role":"admin"}
+
+<<< HTTP 403 Forbidden   (339 ms)
+<<< access-control-allow-origin: *
+<<< alt-svc: h3=":443"; ma=86400
+<<< cf-cache-status: DYNAMIC
+<<< cf-ray: a56e1476a8224f6e-GRU
+<<< connection: keep-alive
+<<< content-encoding: gzip
+<<< content-type: application/json; charset=utf-8
+<<< nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+<<< proxy-status: PostgREST; error=42501
+<<< report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=%2FMS9EDczPmjj0aRVupu8MhGvT9eIStCgxD%2F2QPJ67SGqpNA8YATiKBnPvvSrpopgugngiHOvg9bGvnYGtyKWeESK1eolvS5plhXR%2Fu9178wwrbVxj4fJMf2QRawhBemSEwFHbkvHqw%2B1x71zYdRRfCaCZ09pOw0nRkKkpbFnlkzeb5MLhl96jFmODpHP"}]}
+<<< sb-gateway-version: 1
+<<< sb-jwt-alg: ES256
+<<< sb-jwt-iss: https://xincblojycsgxtyvszkz.supabase.co/auth/v1
+<<< sb-jwt-sub: 14d3b45d-3fe1-4823-8504-846f9f1f2c58
+<<< sb-project-ref: xincblojycsgxtyvszkz
+<<< sb-request-id: 01a1b712-0633-7ca7-9cca-0270f836f8e9
+<<< server: cloudflare
+<<< set-cookie: __cf_bm=H61bXt…[trunc]; HttpOnly; SameSite=None; Partitioned; Secure; Path=/; Domain=lovabl…[trunc]
+<<< strict-transport-security: max-age=31536000; includeSubDomains; preload
+<<< transfer-encoding: chunked
+<<< vary: Accept-Encoding
+<<< x-content-type-options: nosniff
+<<< x-envoy-attempt-count: 1
+<<< x-envoy-upstream-service-time: 3
+<<< x-lovable-cloud-proxy: 1
+<<<
+<<< {"code":"42501","details":null,"hint":"Grant the required privileges to the current role with: GRANT UPDATE ON public.user_roles TO authenticated;","message":"permission denied for table user_roles"}
+
+------------------------------------------------------------------------
+OBSERVAÇÕES:
+user_roles: só GRANT SELECT para authenticated; sem policy de INSERT/UPDATE.
